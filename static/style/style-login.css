@@ -1,0 +1,12 @@
+.background-stars-gif {
+    background-image: url('/static/images/background-stars-gif.gif');
+    opacity: 0.4;
+    background-size: cover;
+    width: 400;
+    height: 300;
+}
+
+.login-box {
+    background-color: #484b7e66;
+    height: 300;
+}
