@@ -3,3 +3,4 @@ Academic project to develop a city's planetarium schedule featuring astronomical
 
 # Versão flask utilizada: flask-3.1.1
 # Utilizando também Bootstrap
+

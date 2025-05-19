@@ -4,3 +4,8 @@ body {
     background-color: #2C2C46;
     color: #FFFBEF;
 }
+
+.logo {
+    width: 5rem;
+    height: 5rem;
+}
