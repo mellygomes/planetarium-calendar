@@ -1,11 +1,9 @@
-from flask import Flask # Flask para criar o site
-from api.routes import api_bp
+from app import create_app
 
-app = Flask(__name__)
-app.register_blueprint(api_bp)
+app = create_app()
 
 #rotas
-from routes.routes import *
+from app.routes.routes import *
 
 if __name__ == "__main__":
     app.run(debug=True)
