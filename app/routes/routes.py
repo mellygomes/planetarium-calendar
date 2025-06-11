@@ -21,6 +21,10 @@ def login():
 def cadastro():
     return render_template("cadastro.html")
 
+# @app.route("/cadastro2")
+# def cadastro2():
+#     return render_template("cadastro2.html")
+
 # --------------------------------------------------------------- Rotas de acoes
 
 @app.route('/cadastrar_usuario', methods=['POST'])

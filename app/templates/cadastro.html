@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='icons/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" type="image/x-icon">
     <title>Daily Cosmos</title>
 
     <script src="{{ url_for('static', filename='js/cadastro.js') }}"></script>
@@ -15,25 +15,26 @@
 </head>
 <body>
     <div class="background-stars-gif"></div>
+    <div class="background-gradient-overlay"></div>
 
     <div class="container justify-content-md-center">
 
      <div class="row text-center">
-        <div class="col-12 mt-5 mb-3 text-center">
-            <img src="{{ url_for('static', filename='icons/daily-cosmos-logo.png') }}" alt="Logo do site Daily Cosmos" class="logo d-inline">
-            <p class=" d-inline"> Daily Cosmos </p>    
+       <div class="col-12 d-flex align-items-center justify-content-center" style="margin-top: 7rem;">
+            <img src="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" alt="Logo do site Daily Cosmos" class="logo d-inline">
+            <p class="d-inline titulo-daily"> Daily Cosmos </p>    
         </div>
 
-        <div class="row justify-content-md-center">
-            <div class="col-4 login-box">
-                <p class="text-center p-4 mt-3 login-title">Cadastro</p>
+        <div class="row justify-content-md-center" style="margin-left: 0.1rem;">
+            <div class="col-5 mt-5 login-box">
+                <p class="text-center p-4 mt-4 login-title">Cadastro</p>
 
                 {% if erro %}
                     <div class="alert alert-danger" role="alert"> Cadastro falhou! </div>
                 {% endif %}
 
             <form id="fomr-cadastro" action="/cadastrar_usuario" method="POST">
-                <div class="container justify-content-md-center p-2">
+                <div class="container justify-content-md-center" style="padding-top: 0.4rem;">
                     <div class="row login-text-field p-1">
                         <img src="{{ url_for('static', filename='icons/login-cadastro-icons/usuario.png') }}" alt="ícone" class="login-icon">
                         <input type="text" placeholder="Usuario" name="nome_usuario" id="nome_usuario" class="input-usuario">
@@ -53,17 +54,18 @@
 
                 <div class="container login-checkbox-field">
                     <div>
-                        <input type="checkbox" name="lembrar" id="lembrar" class="login-checkbox">
+                        <input type="checkbox" name="lembrar" id="lembrar" class="login-checkbox mt-2">
                         <label for="lembrar"><small>Lembrar</small></label>
                     </div>
+                    <!-- <a href="/login" class="login-text-help">Esqueceu a senha?</a> -->
                 </div>
 
-                <div class="d-flex flex-column align-items-center p-5 mt-2">
+                <div class="d-flex flex-column align-items-center p-5">
                     <button class="login-btn">Cadastrar</button>
+                    <span class="login-text-help mt-3"><small>Possui uma conta? <a href="/login">Faça Login!</a></small></span>
                 </div>
 
             </form>
-
             </div>
         </div>
     </div>
