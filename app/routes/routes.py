@@ -4,7 +4,7 @@ from app.controllers import usuario_controller
 from app import create_app
 app = create_app()
 
-from flask import render_template # Motor que renderiza as paginas html
+from flask import jsonify, render_template # Motor que renderiza as paginas html
 
 @app.route("/")
 def homepage():
@@ -20,6 +20,15 @@ def login():
 @app.route("/cadastro")
 def cadastro():
     return render_template("cadastro.html")
+
+@app.route("/calendario-mes")
+def calendario_mes():
+    return render_template("calendario-mes.html")
+
+@app.route("/calendario")
+def calendario():
+    anos = [ano for ano in range(2020, 2031, 1)]
+    return render_template("calendario-anual.html", anos=anos)
 
 # @app.route("/cadastro2")
 # def cadastro2():
@@ -38,5 +47,15 @@ def route_fazer_login():
 @app.route('/logout')
 def route_logout():
     return usuario_controller.logout()
+
+import calendar
+
+@app.route('/calendario/<int:ano>')
+def get_calendario(ano):
+    cal = calendar.Calendar(firstweekday=6)
+    dados = {
+        mes: list(cal.itermonthdays(ano, mes)) for mes in range(1, 13)
+    }
+    return jsonify(dados)
     
     
