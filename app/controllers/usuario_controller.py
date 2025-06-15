@@ -1,7 +1,7 @@
 from app.models.usuario import Usuario 
 
 from app.instances import db
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, render_template
 from flask_login import login_user, logout_user
 
 from app import create_app
@@ -35,7 +35,7 @@ def login():
         return redirect(url_for('homepage'))
     else:
         print("erro")
-        return redirect(url_for('login'), erro=True)
+        return render_template('login.html', erro=True)
 
 def logout():
     logout_user()

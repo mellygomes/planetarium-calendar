@@ -19,6 +19,11 @@
     <div class="container justify-content-md-center">
 
      <div class="row text-center">
+
+        {% if erro %}
+            <div class="alert alert-danger" role="alert"> Login falhou! Veirifque suas credenciais. </div>
+        {% endif %}
+
        <div class="col-12 d-flex align-items-center justify-content-center" style="margin-top: 7rem;">
             <img src="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" alt="Logo do site Daily Cosmos" class="logo d-inline">
             <p class="d-inline titulo-daily"> Daily Cosmos </p>    
@@ -27,10 +32,6 @@
         <div class="row justify-content-md-center" style="margin-left: 0.1rem;">
             <div class="col-5 mt-5 login-box">
                 <p class="text-center p-4 mt-4 login-title">Login</p>
-
-                {% if erro %}
-                    <div class="alert alert-danger" role="alert"> Login falhou. Veirifque suas credenciais. </div>
-                {% endif %}
 
             <form id="login-usuario" action="/fazer_login" method="POST">
                 <div class="container justify-content-md-center" style="padding-top: 2rem;">
