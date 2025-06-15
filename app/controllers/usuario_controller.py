@@ -20,7 +20,7 @@ def cadastrar_usuario():
         if usuario.id_usuario:
             print("aqui")
             login_user(usuario)
-            return redirect(url_for('homepage'))
+            return redirect(url_for('login'))
         else:
             return redirect(url_for('cadastro'), erro=True)
     

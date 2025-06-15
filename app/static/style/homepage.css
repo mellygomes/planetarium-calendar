@@ -1,0 +1,27 @@
+.navbar-brand {
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 7rem;
+}
+
+.gradient-wrapper {
+    padding: 2px;
+    border-radius: 2.5rem;
+    background: linear-gradient(to right, #F4B64B 0%, #FFFBF0 57%, #FFD58C 100%);
+    display: inline-block;
+
+    & #logout-btn, & #login-btn {
+        background-color: #2C2C46; 
+        border-radius: 2.5rem; 
+        padding: .5rem 1.5rem;
+        color: #FFD58C; 
+        text-decoration: none;
+    }
+}
+
+
