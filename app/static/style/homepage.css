@@ -9,6 +9,10 @@
     gap: 7rem;
 }
 
+.nav-links {
+    font-size: 1.3rem;
+}
+
 .gradient-wrapper {
     padding: 2px;
     border-radius: 2.5rem;
@@ -21,6 +25,7 @@
         padding: .5rem 1.5rem;
         color: #FFD58C; 
         text-decoration: none;
+        font-size: 1.3rem;
     }
 }
 
