@@ -1,5 +1,6 @@
 from flask_login import current_user
 from app.controllers import usuario_controller
+from datetime import datetime
 
 from app import create_app
 app = create_app()
@@ -28,7 +29,7 @@ def calendario_mes():
 @app.route("/calendario")
 def calendario():
     anos = [ano for ano in range(2020, 2031, 1)]
-    return render_template("calendario-anual.html", anos=anos)
+    return render_template("calendario-anual.html", anos=anos, anoAtual=datetime.now().year)
 
 # @app.route("/cadastro2")
 # def cadastro2():
