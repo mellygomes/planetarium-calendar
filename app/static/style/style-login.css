@@ -138,6 +138,7 @@ input[type="password"]:focus {
     stroke: none;
     height: 3.5rem;
     width: 9rem;
+    transition: background .2s ease-in
 }
 
 .login-btn:hover {

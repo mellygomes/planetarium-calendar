@@ -1,16 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .navbar-brand {
     align-items: center;
     gap: 1rem;
     font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 .navbar-nav {
     display: flex;
     gap: 7rem;
-}
-
-.nav-links {
-    font-size: 1.3rem;
 }
 
 .gradient-wrapper {
@@ -29,4 +29,62 @@
     }
 }
 
+.nav-links {
+    font-size: 1.3rem;
+    font-family: 'Poppins', sans-serif;
+}
 
+.login-title {
+    font-family: 'Poppins', sans-serif;
+}
+
+.home-title {
+    margin-left: -3.0rem;
+    margin-top: 4.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 350;
+}
+
+.home-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    width: 40rem;
+    height: 4rem;
+}
+
+.calendario-btn {
+    font-size: 1.3rem;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 4.0rem;
+    border-radius: 2.5rem;
+    width: 13rem;
+    height: 3.8rem;
+    background-color: #B6AAFF;
+    transition: background .2s ease-in 
+}
+
+.calendario-btn:hover {
+  background-color: #FFFBEF;
+  color: #484b7e;
+}
+
+.back-circle {
+    border-radius: 10rem;
+    background-color: #484B7E;
+    width: 10rem;
+    height: 10rem;
+    margin-left: 6.0rem;
+}
+
+.circle-img {
+    width: 14rem;
+    height: 14rem;
+    margin-left: -1.6rem;
+    margin-top: -2rem;
+}
+
+.text-circle {
+    margin-top: 2rem;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 4.5rem;
+}

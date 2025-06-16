@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='icons/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" type="image/x-icon">
     <title>Daily Cosmos</title>
 
     <script src="{{ url_for('static', filename='js/calendario-anual.js') }}"></script>
@@ -13,9 +13,44 @@
     
     <link rel="stylesheet" href="{{ url_for('static', filename='style/style-all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/style-calendario.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/homepage.css') }}">
 </head>
 <body>
+
+    <div class="background-stars-gif"></div>
+    <div class="background-gradient-overlay"></div>
+
     <!-- Nav bar aqui depois -->
+     <nav class="navbar navbar-expand-lg navbar-light px-4">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex text-light" href="#">
+                <img src="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" alt="Logo do site Daily Cosmos" width="40px" height="40px" class="d-inline-block align-text-center">
+                Daily Cosmos
+            </a>
+
+            <div class="collapse navbar-collapse justify-content-between">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0" style="margin-top: 1.5rem;">
+                    <li class="nav-item nav-links">
+                        <a href="/" class="nav-link text-light">Home</a>
+                    </li>
+                    <li class="nav-item nav-links">
+                        <a href="/calendario" class="nav-link text-light">Calendário</a>
+                    </li>
+                    <li class="nav-item nav-links">
+                        <a href="#" class="nav-link text-light">Eventos</a>
+                    </li>
+                </ul>
+
+                <div class="gradient-wrapper d-flex login-title" style="margin-top: 1.5rem;">
+                    {% if current_user.is_authenticated %}
+                        <a href="/logout" id="logout-btn">Logout</a>
+                    {% else %}
+                        <a href="/login" id="login-btn">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <main>
         <div class="container d-flex justify-content-center">
