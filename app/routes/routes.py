@@ -5,7 +5,7 @@ from datetime import datetime
 from app import create_app
 app = create_app()
 
-from flask import jsonify, render_template # Motor que renderiza as paginas html
+from flask import jsonify, render_template, render_template_string # Motor que renderiza as paginas html
 
 @app.route("/")
 def homepage():
@@ -28,8 +28,10 @@ def calendario_mes():
 
 @app.route("/calendario")
 def calendario():
-    anos = [ano for ano in range(2020, 2031, 1)]
-    return render_template("calendario-anual.html", anos=anos, anoAtual=datetime.now().year)
+    anoAtual=datetime.now().year
+
+    anos = [ano for ano in range(anoAtual-5, anoAtual+5, 1)]
+    return render_template("calendario-anual.html", anos=anos, anoAtual=anoAtual)
 
 # @app.route("/cadastro2")
 # def cadastro2():
@@ -51,12 +53,49 @@ def route_logout():
 
 import calendar
 
+# @app.route('/calendario/<int:ano>')
+# def get_calendario(ano):
+#     cal = calendar.Calendar(firstweekday=0)
+#     dados = {
+#         mes: list(cal.itermonthdays(ano, mes)) for mes in range(1, 13)
+#     }
+#     return jsonify(dados)
+
 @app.route('/calendario/<int:ano>')
-def get_calendario(ano):
-    cal = calendar.Calendar(firstweekday=0)
-    dados = {
-        mes: list(cal.itermonthdays(ano, mes)) for mes in range(1, 13)
-    }
-    return jsonify(dados)
+def calendario_html(ano):
+    calendario = {}
+
+    for mes in range(1, 13):
+        weeks = calendar.monthcalendar(ano, mes)
+        calendario[mes] = weeks  # lista de semanas com 7 elementos
+
+    return render_template_string(render_calendario_html(calendario))
     
+
+def render_calendario_html(calendario):
+    html = ""
+
+    for mes, semanas in calendario.items():
+        nome_mes = calendar.month_name[mes]
+
+        if (mes - 1) % 3 == 0:
+            html += "<div class='row'>"
+
+        html += f"<div class='mes-container col-4'><h4>{nome_mes}</h4><table class='table table-bordered text-center'>"
+        html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
+
+        for semana in semanas:
+            html += "<tr>" + "".join(f"<td>{dia if dia != 0 else ''}</td>" for dia in semana) + "</tr>"
+
+        html += f"</tbody></table></div>"
+
+        # fecha a linha a cada 3 meses
+        if mes % 3 == 0:
+            html += "</div>"
+
+    # caso o último <div class="row"> não tenha sido fechado (ex: se o loop acabar no mês 11)
+    if mes % 3 != 0:
+        html += "</div>"
+
+    return html
     

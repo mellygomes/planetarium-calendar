@@ -15,3 +15,22 @@ main {
     font-size: 1.5rem;
     width: 30%;
 }
+
+.calendario-mensal {
+    margin-top: 2rem;
+    width: 60%;
+}
+
+.mes-container {
+    padding: 0.5rem;
+}
+
+.calendario-mensal table {
+    border: #78549cae;
+    margin: 1rem;
+    font-size: 0.8rem;
+}
+
+.calendario-mensal h4 {
+    text-align: center;
+}
