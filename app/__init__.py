@@ -12,7 +12,7 @@ def create_app():
     app.secret_key = os.getenv('SECRET_KEY')
 
     init_instances(app)
-
+    
     init_auth()
 
     return app

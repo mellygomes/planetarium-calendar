@@ -53,7 +53,7 @@ import calendar
 
 @app.route('/calendario/<int:ano>')
 def get_calendario(ano):
-    cal = calendar.Calendar(firstweekday=6)
+    cal = calendar.Calendar(firstweekday=0)
     dados = {
         mes: list(cal.itermonthdays(ano, mes)) for mes in range(1, 13)
     }
