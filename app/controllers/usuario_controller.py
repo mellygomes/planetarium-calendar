@@ -18,7 +18,6 @@ def cadastrar_usuario():
         db.session.commit()
 
         if usuario.id_usuario:
-            print("aqui")
             login_user(usuario)
             return redirect(url_for('login'))
         else:
