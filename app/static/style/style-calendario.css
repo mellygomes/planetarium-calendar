@@ -3,7 +3,7 @@
 main {
     font-family: "Playwrite US Modern", cursive;
     color: #F5DBF6;
-    -webkit-text-stroke: 0.5px #78549C;
+    /* -webkit-text-stroke: 0.5px #78549C; */
 }
 
 .carousel-year-button {
@@ -16,9 +16,25 @@ main {
     width: 30%;
 }
 
+.mes-container{
+    transform: scale(1.0);
+    transition: .5s ease-in-out;
+}
+
+.mes-container:hover{
+    transform: scale(1.07);
+    transition: .5s ease-in-out;
+
+}
+
 .mes-container table td .dia {
     padding: 10%;
 }
+
+/* Fazer isso no calendario-mes */
+/* .mes-container table td .dia:hover{
+    -webkit-text-stroke: 0.5px #78549C;
+} */
 
 .mes-container table td {
     padding: 0;
@@ -34,6 +50,20 @@ main {
     margin: 1rem;
     font-size: 0.8rem;
     border-top: #78549c00;
+
+    transform: scale(1.0);
+    transition: .5s ease-in-out;
+}
+
+.mes-container table:hover{
+    /* border: #ffbbf9d0; */
+    border: solid #ffbbf9d0;
+    box-shadow: 0.5px 0.5px 30px #ffffff8c;
+
+    transform: scale(1.003);
+    transition: .5s ease-in-out;
+    -webkit-text-stroke: 0.5px #ffffff75;
+    background-color: #ffbbf915;
 }
 
 .mes-container table th {
@@ -48,7 +78,6 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight: bold;
 }
 
  .calendario-mensal {
@@ -58,6 +87,11 @@ main {
 
 .calendario-mensal h4 {
     text-align: center;
+} 
+
+.calendario-mensal h4:hover {
+    text-align: center;
+
 } 
 
 .mes-container a {
