@@ -16,15 +16,24 @@ main {
     width: 30%;
 }
 
-.mes-container{
+ .mes-container{
     transform: scale(1.0);
     transition: .5s ease-in-out;
 }
 
 .mes-container:hover{
-    transform: scale(1.07);
+    transform: scale(1.05);
     transition: .5s ease-in-out;
+    font-size: 1rem;
+}
 
+.mes-container table:hover, .mes-container h4:hover + table {
+  border: solid #ffbbf9d0;
+  box-shadow: 0.5px 0.5px 30px #ffffff8c;
+  transform: scale(1.05);
+  transition: .5s ease-in-out;
+  -webkit-text-stroke: 0.5px #ffffff75;
+  background-color: #ffbbf915;
 }
 
 .mes-container table td .dia {
@@ -56,11 +65,10 @@ main {
 }
 
 .mes-container table:hover{
-    /* border: #ffbbf9d0; */
     border: solid #ffbbf9d0;
     box-shadow: 0.5px 0.5px 30px #ffffff8c;
 
-    transform: scale(1.003);
+    transform: scale(1.05);
     transition: .5s ease-in-out;
     -webkit-text-stroke: 0.5px #ffffff75;
     background-color: #ffbbf915;
@@ -91,7 +99,6 @@ main {
 
 .calendario-mensal h4:hover {
     text-align: center;
-
 } 
 
 .mes-container a {
