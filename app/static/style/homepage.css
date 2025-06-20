@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* NAVBAR styles */
 .navbar-brand {
     align-items: center;
     gap: 1rem;
@@ -34,10 +35,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Título no -> login.html <-  */
 .login-title {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Título e texto INICIAL -> homepage.html <- */
 .home-title {
     margin-left: -3.0rem;
     margin-top: 4.2rem;
@@ -52,6 +55,7 @@
     height: 4rem;
 }
 
+/* Botão que redireciona pra pagina calendario-anual.html -> homepage.html <- */
 .calendario-btn {
     font-size: 1.3rem;
     font-family: 'Poppins', sans-serif;
@@ -68,6 +72,7 @@
   color: #484b7e;
 }
 
+/* IMAGENS circulares e TEXTOS complementares -> homepage.html <- */
 .back-circle {
     border-radius: 10rem;
     background-color: #484B7E;
@@ -86,7 +91,7 @@
 .text-circle {
     margin-top: 2rem;
     font-family: 'Poppins', sans-serif;
-    margin-left: 4.5rem;
+    margin-left: -2.5rem;
 }
 
 .transition-max{
@@ -99,12 +104,14 @@
     transition: .5s ease-in-out;
 }
 
+/* Título de EVENTOS RECENTES -> homepage.html <- */
 .recent-events-title{
     font-size: 1.8rem;
     font-family: 'Poppins', sans-serif;
-    margin-left: -4.0rem;
+    margin-left: -1.0rem;
 }
 
+/* Carrossel de EVENTOS RECENTES -> homepage.html <- */
 .item-carousel{
     width: 15rem;
     height: 15rem;
@@ -112,4 +119,61 @@
     background-color: #484B7E;
     opacity: 65%;
     margin-top: 3rem;
+}
+
+.row-carousel{
+    width: 90rem; 
+    margin-left: -4.5rem; 
+    height: 20rem;
+}
+
+.carousel{
+    overflow: hidden;
+}
+
+.swiper-slide {
+  background-color: #484B7E;
+  border-radius: 1.5rem;
+  opacity: 0.65;
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  transform: scale(1.0);
+  transition: .5s ease-in-out;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.swiper-slide:hover {
+  transform: scale(1.08);
+  transition: .5s ease-in-out;
+}
+
+.event-card {
+  text-align: center;
+  color: #fff;
+}
+
+.swiper-button-next{
+    color: #B6AAFF;
+    margin-top: 43rem;
+    margin-right: 4.0rem;
+    background-color: #484B7E;
+    border-radius: 1.3rem;
+    opacity: 0.65;
+    width: 4rem;
+    height: 4rem;
+}
+
+.swiper-button-prev{
+    color: #B6AAFF;
+    margin-top: 43rem;
+    margin-left: 4.0rem;
+    background-color: #484B7E;
+    border-radius: 1.3rem;
+    opacity: 0.65;
+    width: 4rem;
+    height: 4rem;
 }
