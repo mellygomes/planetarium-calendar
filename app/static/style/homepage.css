@@ -88,3 +88,28 @@
     font-family: 'Poppins', sans-serif;
     margin-left: 4.5rem;
 }
+
+.transition-max{
+    transform: scale(1.0);
+    transition: .5s ease-in-out;
+}
+
+.transition-max:hover{
+    transform: scale(1.1);
+    transition: .5s ease-in-out;
+}
+
+.recent-events-title{
+    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    margin-left: -4.0rem;
+}
+
+.item-carousel{
+    width: 15rem;
+    height: 15rem;
+    border-radius: 2rem;
+    background-color: #484B7E;
+    opacity: 65%;
+    margin-top: 3rem;
+}
