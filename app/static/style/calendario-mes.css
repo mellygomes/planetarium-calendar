@@ -9,24 +9,52 @@ main {
 .mes-unico-container {
     text-align: center;
     margin-top: 2rem;
-    width: 60%;
+    width: 70%;
+}
+
+.mes-unico-container h4 {
+    margin: 2rem;
+}
+
+.mes-unico-container table td .dia {
+    width: 100%;
+    padding-bottom: 30%;
+    position: relative;
+}
+
+.mes-unico-container table td p {
+   padding: 8%;
 }
 
 .mes-unico-container table td {
-    padding: 5%;
+    padding: 0;
+
+    text-align: left;
+    color: #F5DBF6;
 }
 
 .mes-unico-container table {
-    border: #78549cae;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+
+    border: #ffbbf9b9;
     margin: 1rem;
     font-size: 0.8rem;
     border-top: #78549c00;
 }
 
 .mes-unico-container table th {
+    color: #ffbbf9b9;
+    -webkit-text-stroke: 0 #78549C;
     border: #78549c00;
 }
 
-.mes-unico-container table td {
-    color: #F5DBF6;
+.mes-unico-container td .dia::after {
+    content: attr(data-dia);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
 }

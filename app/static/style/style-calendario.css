@@ -16,43 +16,49 @@ main {
     width: 30%;
 }
 
-.calendario-mensal {
-    margin-top: 2rem;
-    width: 60%;
+.mes-container table td .dia {
+    padding: 10%;
 }
 
-.mes-unico-container {
-    margin-top: 2rem;
-    width: 70%;
+.mes-container table td {
+    padding: 0;
+    color: #F5DBF6;
 }
 
-.mes-unico-container table td {
-    padding: 5%;
+.mes-container table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
 
-}
-
-.mes-container {
-    padding: 0.5rem;
-}
-
-.calendario-mensal table {
-    border: #78549cae;
+    border: #ffbbf94d;
     margin: 1rem;
     font-size: 0.8rem;
     border-top: #78549c00;
 }
 
-.calendario-mensal h4 {
-    text-align: center;
-}
-
-.calendario-mensal table th {
+.mes-container table th {
+    color: #ffbbf9b9;
+    -webkit-text-stroke: 0 #78549C;
     border: #78549c00;
 }
 
-.calendario-mensal table td {
-    color: #F5DBF6;
+.mes-container td .dia::after {
+    content: attr(data-dia);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
 }
+
+ .calendario-mensal {
+    margin-top: 2rem;
+    width: 60%;
+} 
+
+.calendario-mensal h4 {
+    text-align: center;
+} 
 
 .mes-container a {
     text-decoration: none;

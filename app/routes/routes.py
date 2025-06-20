@@ -79,7 +79,7 @@ def render_calendario_html(calendario, ano):
         html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
 
         for semana in semanas:
-            html += "<tr>" + "".join(f"<td>{dia if dia != 0 else '&nbsp'}</td>" for dia in semana) + "</tr>"
+            html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
 
         html += f"</tbody></table></a></div>"
 
@@ -98,14 +98,12 @@ def render_mes_html(ano, mes):
 
     nome_mes = calendar.month_name[mes]
     semanas = calendar.monthcalendar(ano, mes)
-    while len(semanas) < 6:
-        semanas.append([0, 0, 0, 0, 0, 0, 0])
 
-    html += f"<div class='mes-unico-container'><h4>{nome_mes}</h4><table class='table table-bordered text-center'>"
-    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
+    html += f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
+    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
 
     for semana in semanas:
-        html += "<tr>" + "".join(f"<td>{dia if dia != 0 else '&nbsp'}</td>" for dia in semana) + "</tr>"
+        html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
 
     html += "</tbody></table></div>"
 
