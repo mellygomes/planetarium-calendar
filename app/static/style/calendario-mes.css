@@ -6,55 +6,27 @@ main {
     -webkit-text-stroke: 0.5px #78549C;
 }
 
-.carousel-year-button {
-    font-size: 1rem !important;
-    -webkit-text-stroke: 0.2px #78549C;
-}
-
-.carousel-anos {
-    font-size: 1.5rem;
-    width: 30%;
-}
-
-.calendario-mensal {
+.mes-unico-container {
+    text-align: center;
     margin-top: 2rem;
     width: 60%;
 }
 
-.mes-unico-container {
-    margin-top: 2rem;
-    width: 70%;
-}
-
 .mes-unico-container table td {
     padding: 5%;
-
 }
 
-.mes-container {
-    padding: 0.5rem;
-}
-
-.calendario-mensal table {
+.mes-unico-container table {
     border: #78549cae;
     margin: 1rem;
     font-size: 0.8rem;
     border-top: #78549c00;
 }
 
-.calendario-mensal h4 {
-    text-align: center;
-}
-
-.calendario-mensal table th {
+.mes-unico-container table th {
     border: #78549c00;
 }
 
-.calendario-mensal table td {
-    color: #F5DBF6;
-}
-
-.mes-container a {
-    text-decoration: none;
+.mes-unico-container table td {
     color: #F5DBF6;
 }
