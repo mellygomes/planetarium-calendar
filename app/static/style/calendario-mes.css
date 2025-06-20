@@ -6,61 +6,55 @@ main {
     -webkit-text-stroke: 0.5px #78549C;
 }
 
-.carousel-year-button {
-    font-size: 1rem !important;
-    -webkit-text-stroke: 0.2px #78549C;
+.mes-unico-container {
+    text-align: center;
+    margin-top: 2rem;
+    width: 70%;
 }
 
-.carousel-anos {
-    font-size: 1.5rem;
-    width: 30%;
+.mes-unico-container h4 {
+    margin: 2rem;
 }
 
-.mes-container table td .dia {
-    padding: 10%;
+.mes-unico-container table td .dia {
+    width: 100%;
+    padding-bottom: 30%;
+    position: relative;
 }
 
-.mes-container table td {
+.mes-unico-container table td p {
+   padding: 8%;
+}
+
+.mes-unico-container table td {
     padding: 0;
+
+    text-align: left;
     color: #F5DBF6;
 }
 
-.mes-container table {
+.mes-unico-container table {
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 
-    border: #ffbbf94d;
+    border: #ffbbf9b9;
     margin: 1rem;
     font-size: 0.8rem;
     border-top: #78549c00;
 }
 
-.mes-container table th {
+.mes-unico-container table th {
     color: #ffbbf9b9;
     -webkit-text-stroke: 0 #78549C;
     border: #78549c00;
 }
 
-.mes-container td .dia::after {
+.mes-unico-container td .dia::after {
     content: attr(data-dia);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: bold;
-}
-
- .calendario-mensal {
-    margin-top: 2rem;
-    width: 60%;
-} 
-
-.calendario-mensal h4 {
-    text-align: center;
-} 
-
-.mes-container a {
-    text-decoration: none;
-    color: #F5DBF6;
 }

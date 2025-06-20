@@ -5,7 +5,7 @@ from datetime import datetime
 from app import create_app
 app = create_app()
 
-from flask import jsonify, render_template, render_template_string # Motor que renderiza as paginas html
+from flask import render_template, render_template_string # Renderiza as paginas html
 
 @app.route("/")
 def homepage():
@@ -22,10 +22,6 @@ def login():
 def cadastro():
     return render_template("cadastro.html")
 
-@app.route("/calendario-mes")
-def calendario_mes():
-    return render_template("calendario-mes.html")
-
 @app.route("/calendario")
 def calendario():
     anoAtual=datetime.now().year
@@ -33,9 +29,11 @@ def calendario():
     anos = [ano for ano in range(anoAtual-5, anoAtual+5, 1)]
     return render_template("calendario-anual.html", anos=anos, anoAtual=anoAtual)
 
-# @app.route("/cadastro2")
-# def cadastro2():
-#     return render_template("cadastro2.html")
+@app.route("/calendario/<int:ano>-<int:mes>")
+def calendario_mes(ano, mes):
+    html = render_template_string(render_mes_html(ano, mes))
+
+    return render_template("calendario-mes.html", mes_html=html)
 
 # --------------------------------------------------------------- Rotas de acoes
 
@@ -52,27 +50,23 @@ def route_logout():
     return usuario_controller.logout()
 
 import calendar
-
-# @app.route('/calendario/<int:ano>')
-# def get_calendario(ano):
-#     cal = calendar.Calendar(firstweekday=0)
-#     dados = {
-#         mes: list(cal.itermonthdays(ano, mes)) for mes in range(1, 13)
-#     }
-#     return jsonify(dados)
-
 @app.route('/calendario/<int:ano>')
 def calendario_html(ano):
     calendario = {}
 
     for mes in range(1, 13):
         weeks = calendar.monthcalendar(ano, mes)
-        calendario[mes] = weeks  # lista de semanas com 7 elementos
 
-    return render_template_string(render_calendario_html(calendario))
+        # garantir que haja exatamente 6 semanas (6 linhas na tabela)
+        while len(weeks) < 6:
+            weeks.append([0, 0, 0, 0, 0, 0, 0])
+
+        calendario[mes] = weeks
+
+    return render_template_string(render_calendario_html(calendario, ano))
     
 
-def render_calendario_html(calendario):
+def render_calendario_html(calendario, ano):
     html = ""
 
     for mes, semanas in calendario.items():
@@ -81,13 +75,13 @@ def render_calendario_html(calendario):
         if (mes - 1) % 3 == 0:
             html += "<div class='row'>"
 
-        html += f"<div class='mes-container col-4'><h4>{nome_mes}</h4><table class='table table-bordered text-center'>"
+        html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4>{nome_mes}</h4><table class='table table-bordered text-center'>"
         html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
 
         for semana in semanas:
-            html += "<tr>" + "".join(f"<td>{dia if dia != 0 else ''}</td>" for dia in semana) + "</tr>"
+            html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
 
-        html += f"</tbody></table></div>"
+        html += f"</tbody></table></a></div>"
 
         # fecha a linha a cada 3 meses
         if mes % 3 == 0:
@@ -96,6 +90,22 @@ def render_calendario_html(calendario):
     # caso o último <div class="row"> não tenha sido fechado (ex: se o loop acabar no mês 11)
     if mes % 3 != 0:
         html += "</div>"
+
+    return html
+
+def render_mes_html(ano, mes):
+    html = ""
+
+    nome_mes = calendar.month_name[mes]
+    semanas = calendar.monthcalendar(ano, mes)
+
+    html += f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
+    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
+
+    for semana in semanas:
+        html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
+
+    html += "</tbody></table></div>"
 
     return html
     
