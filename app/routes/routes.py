@@ -75,7 +75,7 @@ def render_calendario_html(calendario, ano):
         if (mes - 1) % 3 == 0:
             html += "<div class='row'>"
 
-        html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4>{nome_mes}</h4><table class='table table-bordered text-center'>"
+        html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4 class='bosta'>{nome_mes}</h4><table class='table table-bordered text-center'>"
         html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
 
         for semana in semanas:
