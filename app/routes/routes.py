@@ -49,6 +49,8 @@ def route_fazer_login():
 def route_logout():
     return usuario_controller.logout()
 
+# ------------------------------------------------ Calendario
+
 import calendar
 @app.route('/calendario/<int:ano>')
 def calendario_html(ano):
@@ -108,4 +110,29 @@ def render_mes_html(ano, mes):
     html += "</tbody></table></div>"
 
     return html
+
+# ---------------------------------------------------------- rotas admin
+
+def render_admin_mes_html(ano, mes):
+    html = ""
+
+    nome_mes = calendar.month_name[mes]
+    semanas = calendar.monthcalendar(ano, mes)
+
+    html += f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
+    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
+
+    for semana in semanas:
+        html += "<tr>" + "".join(f"<td><div class='dia-admin'>{'<button>'+str(dia)+'</button>' if dia != 0 else '&nbsp'}</div></td>" for dia in semana) + "</tr>"
+
+    html += "</tbody></table></div>"
+
+    return html
+
+@app.route("/admin/calendario/<int:ano>-<int:mes>")
+def admin_calendario_mes(ano, mes):
+    html = render_template_string(render_admin_mes_html(ano, mes))
+
+    return render_template("calendario-mes-admin.html", mes_html=html)
+
     

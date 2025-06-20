@@ -58,3 +58,29 @@ main {
     transform: translate(-50%, -50%);
     font-weight: bold;
 }
+
+
+/* GAMBIARRAAAA AAEHHH */
+.mes-unico-container td .dia-admin::after {
+    content: attr(data-dia);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.mes-unico-container table td .dia-admin {
+    width: 100%;
+    position: relative;
+}
+
+.mes-unico-container td button {
+    color: #F5DBF6;
+    background-color: #78549c00;
+    padding-bottom: 50%;
+    border: none;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
