@@ -1,39 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* NAVBAR styles */
-.navbar-brand {
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.5rem;
-    font-family: 'Poppins', sans-serif;
-}
-
-.navbar-nav {
-    display: flex;
-    gap: 7rem;
-}
-
-.gradient-wrapper {
-    padding: 2px;
-    border-radius: 2.5rem;
-    background: linear-gradient(to right, #F4B64B 0%, #FFFBF0 57%, #FFD58C 100%);
-    display: inline-block;
-
-    & #logout-btn, & #login-btn {
-        background-color: #2C2C46; 
-        border-radius: 2.5rem; 
-        padding: .5rem 1.5rem;
-        color: #FFD58C; 
-        text-decoration: none;
-        font-size: 1.3rem;
-    }
-}
-
-.nav-links {
-    font-size: 1.3rem;
-    font-family: 'Poppins', sans-serif;
-}
 
 /* Título no -> login.html <-  */
 .login-title {
