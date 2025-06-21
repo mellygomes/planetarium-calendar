@@ -123,7 +123,7 @@ def render_admin_mes_html(ano, mes):
     html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
 
     for semana in semanas:
-        html += "<tr>" + "".join(f"<td><div class='dia-admin'>{'<button>'+str(dia)+'</button>' if dia != 0 else '&nbsp'}</div></td>" for dia in semana) + "</tr>"
+        html += "<tr>" + "".join(f"<td><div class='dia-admin'>{"<button data-data="+str(ano)+"-"+str(mes)+"-"+str(dia)+" onclick='openPopup(this)'>"+str(dia)+"</button>" if dia != 0 else "&nbsp"}</div></td>" for dia in semana) + "</tr>"
 
     html += "</tbody></table></div>"
 
