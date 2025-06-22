@@ -1,12 +1,14 @@
 from app.models.evento import Evento
-from datetime import datetime
+from datetime import datetime, date
 import calendar
+from sqlalchemy import func
+
+import json
+import ephem
+from datetime import timedelta
 
 from app.instances import db
 from flask import request, redirect, url_for
-
-from app import create_app
-app = create_app()
 
 def adicionar_evento():
     if (request.method == 'POST' and
@@ -43,16 +45,37 @@ def adicionar_evento():
     return "Dados do formulário ausentes ou inválidos", 400
 
 
+def get_eventos_do_ano(ano): # -> retorna todos os eventos entre primeiro e ultimo dia do ano
+    eventos_por_data = (
+        db.session.query(Evento.data_evento, func.count(Evento.id_evento))
+        .filter(
+            Evento.data_evento >= date(ano, 1, 1),
+            Evento.data_evento <= date(ano, 12, 31)
+        )
+        .group_by(Evento.data_evento)
+        .all()
+    )
+
+    return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+
+def get_eventos_do_mes(ano, mes): # -> retorna todos os eventos entre primeiro e ultimo dia do mes
+    eventos_por_data = (
+        db.session.query(Evento.data_evento, func.count(Evento.id_evento))
+        .filter(
+            Evento.data_evento >= date(ano, mes, 1),
+            Evento.data_evento <= date(ano, mes, 31)
+        )
+        .group_by(Evento.data_evento)
+        .all()
+    )
+
+    return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+
 def excluir_evento():
     pass
 
 def editar_evento():
     pass
-
-    
-import json
-import ephem
-from datetime import timedelta
 
 def calcular_dia_mundial_astronomia(ano):
     equinocio = datetime(ano, 9, 22)
@@ -89,6 +112,8 @@ def carregar_eventos_astronomicos(ano):
 def render_calendario_html(calendario, ano):
     html = ""
 
+    eventos_por_dia = get_eventos_do_ano(ano)
+
     for mes, semanas in calendario.items():
         nome_mes = calendar.month_name[mes]
 
@@ -99,7 +124,17 @@ def render_calendario_html(calendario, ano):
         html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
 
         for semana in semanas:
-            html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
+            html += "<tr>"
+
+            for dia in semana:
+                if dia != 0:
+                    data_str = f"{ano}-{mes:02d}-{dia:02d}"
+                    classe = "dia-evento" if data_str in eventos_por_dia else "dia"
+                    html += f"<td><div class='{classe}'><p>{dia}</p></div></td>"
+                else:
+                    html += "<td><div class='dia'><p>&nbsp;</p></div></td>"
+            html += "</tr>"
+
 
         html += f"</tbody></table></a></div>"
 
