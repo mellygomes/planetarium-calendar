@@ -1,5 +1,5 @@
 from flask_login import current_user
-from app.controllers import usuario_controller
+from app.controllers import usuario_controller, evento_controller
 from datetime import datetime
 
 from app import create_app
@@ -31,9 +31,18 @@ def calendario():
 
 @app.route("/calendario/<int:ano>-<int:mes>")
 def calendario_mes(ano, mes):
-    html = render_template_string(render_mes_html(ano, mes))
 
-    return render_template("calendario-mes.html", mes_html=html)
+    if current_user.is_authenticated == False or current_user.tipo_usuario == 'comum' :
+        html = render_template_string(render_mes_html(ano, mes))
+        return render_template("calendario-mes.html", mes_html=html)
+    
+    elif current_user.is_authenticated and current_user.tipo_usuario == 'admin':
+        html = render_template_string(render_admin_mes_html(ano, mes))
+        return render_template("calendario-mes-admin.html", mes_html=html)
+    
+    else:
+        html = render_template_string(render_mes_html(ano, mes))
+        return render_template("/admin/calendario/<int:ano>-<int:mes>", mes_html=html)
 
 # --------------------------------------------------------------- Rotas de acoes
 
@@ -135,6 +144,10 @@ def admin_calendario_mes(ano, mes):
 
     return render_template("calendario-mes-admin.html", mes_html=html)
 
+@app.route('/admin/adicionar-evento', methods=['POST'])
+def route_adicionar_evento():
+    return evento_controller.adicionar_evento()
+
 # ---------------------------------------------------------- TESTES
 import json
 import ephem
@@ -168,7 +181,6 @@ def carregar_eventos_astronomicos(ano):
         else:
             continue  # ignora eventos sem data válida
 
-        # ✅ Aqui estava faltando:
         eventos[str(data)] = evento["nome"]
 
     return eventos
@@ -208,3 +220,6 @@ def render_mes_html(ano, mes):
 
     html += "</tbody></table></div>"
     return html
+@app.route('/admin/adicionar-evento', methods=['POST'])
+def route_adicionar_evento():
+    return evento_controller.adicionar_evento()
