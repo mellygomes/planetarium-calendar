@@ -77,32 +77,32 @@ def calendario_html(ano):
     return render_template_string(evento_controller.render_calendario_html(calendario, ano))
     
 
-def render_calendario_html(calendario, ano):
-    html = ""
+# def render_calendario_html(calendario, ano):
+#     html = ""
 
-    for mes, semanas in calendario.items():
-        nome_mes = calendar.month_name[mes]
+#     for mes, semanas in calendario.items():
+#         nome_mes = calendar.month_name[mes]
 
-        if (mes - 1) % 3 == 0:
-            html += "<div class='row'>"
+#         if (mes - 1) % 3 == 0:
+#             html += "<div class='row'>"
 
-        html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4 class='bosta'>{nome_mes}</h4><table class='table table-bordered text-center'>"
-        html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
+#         html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4 class='bosta'>{nome_mes}</h4><table class='table table-bordered text-center'>"
+#         html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
 
-        for semana in semanas:
-            html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
+#         for semana in semanas:
+#             html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
 
-        html += f"</tbody></table></a></div>"
+#         html += f"</tbody></table></a></div>"
 
-        # fecha a linha a cada 3 meses
-        if mes % 3 == 0:
-            html += "</div>"
+#         # fecha a linha a cada 3 meses
+#         if mes % 3 == 0:
+#             html += "</div>"
 
-    # caso o último <div class="row"> não tenha sido fechado (ex: se o loop acabar no mês 11)
-    if mes % 3 != 0:
-        html += "</div>"
+#     # caso o último <div class="row"> não tenha sido fechado (ex: se o loop acabar no mês 11)
+#     if mes % 3 != 0:
+#         html += "</div>"
 
-    return html
+#     return html
 
 # def render_mes_html(ano, mes):
 #     html = ""
