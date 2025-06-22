@@ -76,27 +76,28 @@
         <div class="popup-overlay" id="popup">
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup()">&nbsp X &nbsp</button>
-                <h2>Criar novo evento</h2>
 
-                    <form action="/" method="POST">
+                    <form id="form-add-evento" action="/admin/adicionar-evento" method="POST">
                         <div class="form-group container form-evento">
                             <div class="row">
-                                <p> data e tals </p>
+                                <h2>Adicionar novo evento em <p> (Esse é um texto default) </p> </h2>
                                 <input type="hidden" name="data_evento" id="data_evento">
                             </div>
 
+                            <input class="form-control" type="text" placeholder="Título do evento" id="titulo" name="titulo">
+
                             <div class="row">
-                                <div class="col-6"><input class="form-control" type="text" id="horario_incicio" name="horario_incicio" placeholder="Horário de início" onfocus="(this.type='time')" onblur="(this.type='text')"></div>
+                                <div class="col-6"><input class="form-control" type="text" id="horario_inicio" name="horario_inicio" placeholder="Horário de início" onfocus="(this.type='time')" onblur="(this.type='text')"></div>
                                 <div class="col-6"><input class="form-control" type="text" id="horario_fim" name="horario_fim" placeholder="Horário de término" onfocus="(this.type='time')" onblur="(this.type='text')"></div>
                             </div>
 
-                                <input class="form-control" type="text" placeholder="Localização" id="localizacao">
+                                <input class="form-control" type="text" placeholder="Localização" id="localizacao" name="localizacao">
 
-                                <input class="form-control" type="text" placeholder="Categoria" id="categoria">
+                                <input class="form-control" type="text" placeholder="Categoria" id="categoria" name="categoria">
 
-                                <textarea class="form-control" type="text" placeholder="Descrição" id="descricao" id="" style="resize: none"></textarea>
+                                <textarea class="form-control" type="text" placeholder="Descrição" id="descricao" name="descricao" style="resize: none"></textarea>
 
-                                <button class="submit-btn">Enviar</button>
+                                <button class="submit-btn">Adicionar</button>
                         </div>
                     </form>
             </div>

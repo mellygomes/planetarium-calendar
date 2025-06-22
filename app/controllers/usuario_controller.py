@@ -14,14 +14,25 @@ def cadastrar_usuario():
         senha_usuario = request.form['senha_usuario']
 
         usuario=Usuario(nome_usuario, email_usuario, senha_usuario)
-        db.session.add(usuario)
-        db.session.commit()
+        
+        try:
+            db.session.add(usuario)
+            db.session.commit()
 
-        if usuario.id_usuario:
-            login_user(usuario)
-            return redirect(url_for('login'))
-        else:
+            if usuario.id_usuario:
+                login_user(usuario)
+                return redirect(url_for('login'))
+            else:
+                db.session.rollback()
+                print("Erro ao cadastrar usuário:", e)
+                return redirect(url_for('cadastro'), erro=True)
+        except Exception as e:
+            db.session.rollback()
+            print("Erro ao cadastrar usuário:", e)
             return redirect(url_for('cadastro'), erro=True)
+
+    return "Dados do formulário ausentes ou inválidos", 400
+
     
 def login():
     if request.method == 'POST' and 'email_usuario' in request.form and 'senha_usuario' in request.form:
