@@ -52,14 +52,15 @@ main {
     border: #78549c00;
 }
 
-.mes-unico-container td .dia::after {
+/* Comentei pra não aparecer o número do dia duas vezes no calendário */
+/* .mes-unico-container td .dia::after {
     content: attr(data-dia);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: bold;
-}
+} */
 
 
 /* GAMBIARRAAAA AAEHHH */
@@ -166,4 +167,31 @@ main {
 .form-evento textarea {
     padding-bottom: 5rem;
     background-color: #F5DBF6;
+}
+
+/* Teste */
+/* Estilização para eventos astronômicos no calendário */
+
+.evento-astronomico {
+    background: radial-gradient(circle at top left, #f5dbf646, #9b36f429);
+    border: 1px dashed #fca5ff88;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    padding: 6%;
+}
+
+.nome-evento {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    font-size: 0.55rem;
+    text-align: left;
+    color: #ffbbf9c0;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(120, 84, 156, 0.3);
+    padding: 2px 4px;
+    border-radius: 6px;
+    z-index: 2;
 }
