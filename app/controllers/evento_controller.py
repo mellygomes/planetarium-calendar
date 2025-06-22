@@ -105,7 +105,10 @@ def carregar_eventos_astronomicos(ano):
         else:
             continue  # ignora eventos sem data válida
 
-        eventos[str(data)] = evento["nome"]
+        if str(data) not in eventos:
+            eventos[str(data)] = []
+
+        eventos[str(data)].append(evento["nome"])
 
     return eventos
 
@@ -164,17 +167,16 @@ def render_mes_html(ano, mes):
                 html += "<td><div class='dia'>&nbsp;</div></td>"
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
-                nome_evento = eventos.get(data_str)
+                eventos_dia = eventos.get(data_str, [])
 
-                if nome_evento:
-                    html += f"""
-                    <td>
-                        <div class='dia evento-astronomico' data-dia='{dia}'>
-                            <p>{dia}</p>
-                            <div class='nome-evento'>{nome_evento}</div>
-                        </div>
-                    </td>
-                    """
+                if eventos_dia:
+                    html += f"<td><div class='dia evento-astronomico' data-dia='{dia}'>"
+                    html += f"<p>{dia}</p>"
+                    for nome_evento in eventos_dia:
+                        nome_limpo = nome_evento.split(" (")[0]  # pega só o que vem antes do parêntese
+                        html += f"<div class='nome-evento'>{nome_limpo}</div>"
+
+                    html += "</div></td>"
                 else:
                     html += f"<td><div class='dia' data-dia='{dia}'><p>{dia}</p></div></td>"
         html += "</tr>"

@@ -11,7 +11,7 @@ main {
 .mes-unico-container {
     text-align: center;
     margin-top: 2rem;
-    width: 70%;
+    width: 80%;
 }
 
 .mes-unico-container h4 {
@@ -22,6 +22,7 @@ main {
     width: 100%;
     padding-bottom: 30%;
     position: relative;
+    height: 8rem;
 }
 
 .mes-unico-container table td p {
@@ -30,7 +31,6 @@ main {
 
 .mes-unico-container table td {
     padding: 0;
-
     text-align: left;
     color: #F5DBF6;
 }
@@ -54,13 +54,12 @@ main {
 
 /* Comentei pra não aparecer o número do dia duas vezes no calendário */
 /* .mes-unico-container td .dia::after {
-    content: attr(data-dia);
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 150%;
+    left: 150%;
     transform: translate(-50%, -50%);
     font-weight: bold;
-} */
+}  */
 
 
 /* GAMBIARRAAAA AAEHHH */
@@ -174,15 +173,14 @@ main {
 
 .evento-astronomico {
     background: radial-gradient(circle at top left, #f5dbf646, #9b36f429);
-    border: 1px dashed #fca5ff88;
+    border: 1px solid #fca5ff88;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
     padding: 6%;
 }
-
+/* 
 .nome-evento {
-    position: absolute;
     bottom: 4px;
     left: 4px;
     right: 4px;
@@ -194,4 +192,19 @@ main {
     padding: 2px 4px;
     border-radius: 6px;
     z-index: 2;
+} */
+
+.nome-evento {
+    background-color: #78549C;
+    color: #F5DBF6;
+    font-size: 0.7rem;
+    padding: 5px 6px;
+    border-radius: 8px;
+    margin: 2px 0;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
