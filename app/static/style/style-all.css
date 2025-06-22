@@ -5,6 +5,11 @@ body {
     color: #FFFBEF;
 }
 
+body::selection {
+    background-color: #ffcdfaa9;
+    color: #0D3160;
+}
+
 .logo {
     width: 4rem;
     height: 4rem;
