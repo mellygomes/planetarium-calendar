@@ -1,0 +1,108 @@
+[
+  {
+    "nome": "Dia do Astrônomo",
+    "data": "02-01",
+    "descricao": "Data em homenagem aos profissionais que estudam o universo.",
+    "recorrente": true
+  },
+
+  {
+    "nome": "Dia Teste",
+    "data": "02-01",
+    "descricao": "Data teste",
+    "recorrente": true
+  },
+
+  {
+    "nome": "Dia do Planetário",
+    "data": "08-03",
+    "descricao": "Celebra os planetários como centros de divulgação científica.",
+    "recorrente": true
+  },
+  {
+    "nome": "Equinócio de Março",
+    "data": "20-03",
+    "descricao": "Marca o início do outono no hemisfério sul.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia Internacional da Astronomia (Data Móvel)",
+    "movel": true,
+    "descricao": "Comemorado no sábado mais próximo do primeiro quarto lunar da primavera. Utilizado por planetários para promover eventos públicos.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia Internacional do Voo Espacial Tripulado",
+    "data": "12-04",
+    "descricao": "Comemora o voo de Yuri Gagarin em 1961.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia da Terra",
+    "data": "22-04",
+    "descricao": "Conscientização sobre o planeta e o universo.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia do Asteroide",
+    "data": "30-06",
+    "descricao": "Conscientização sobre o risco de impactos de asteroides.",
+    "recorrente": true
+  },
+  {
+    "nome": "Solstício de Junho",
+    "data": "21-06",
+    "descricao": "Início do inverno no hemisfério sul.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia da Lua",
+    "data": "20-07",
+    "descricao": "Comemora o pouso da Apollo 11 na Lua em 1969.",
+    "recorrente": true
+  },
+  {
+    "nome": "Aniversário da NASA",
+    "data": "29-07",
+    "descricao": "Criação da NASA em 1958.",
+    "recorrente": true
+  },
+  {
+    "nome": "Semana Mundial do Espaço",
+    "data_inicio": "04-10",
+    "data_fim": "10-10",
+    "descricao": "Semana de celebração internacional do espaço.",
+    "intervalo": true,
+    "recorrente": true
+  },
+  {
+    "nome": "Equinócio de Setembro",
+    "data": "22-09",
+    "descricao": "Marca o início da primavera no hemisfério sul.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia do Radioastrônomo",
+    "data": "26-11",
+    "descricao": "Homenagem aos pesquisadores da radioastronomia.",
+    "recorrente": true
+  },
+  {
+    "nome": "Solstício de Dezembro",
+    "data": "21-12",
+    "descricao": "Início do verão no hemisfério sul.",
+    "recorrente": true
+  },
+  {
+    "nome": "Dia Nacional da Astronomia (Brasil)",
+    "data": "02-12",
+    "descricao": "Comemoração ao Dia Nacional da Astronomia no Brasil, em homenagem a Dom Pedro II.",
+    "recorrente": true
+  },
+  {
+    "nome": "Apogeu da Terra",
+    "data": "04-07",
+    "descricao": "Ponto da órbita em que a Terra está mais distante do Sol.",
+    "recorrente": true
+  }
+]
