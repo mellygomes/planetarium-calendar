@@ -33,15 +33,15 @@ def calendario():
 def calendario_mes(ano, mes):
 
     if current_user.is_authenticated == False or current_user.tipo_usuario == 'comum' :
-        html = render_template_string(render_mes_html(ano, mes))
+        html = render_template_string(evento_controller.render_mes_html(ano, mes))
         return render_template("calendario-mes.html", mes_html=html)
     
     elif current_user.is_authenticated and current_user.tipo_usuario == 'admin':
-        html = render_template_string(render_admin_mes_html(ano, mes))
+        html = render_template_string(evento_controller.render_admin_mes_html(ano, mes))
         return render_template("calendario-mes-admin.html", mes_html=html)
     
     else:
-        html = render_template_string(render_mes_html(ano, mes))
+        html = render_template_string(evento_controller.render_mes_html(ano, mes))
         return render_template("/admin/calendario/<int:ano>-<int:mes>", mes_html=html)
 
 # --------------------------------------------------------------- Rotas de acoes
@@ -74,73 +74,11 @@ def calendario_html(ano):
 
         calendario[mes] = weeks
 
-    return render_template_string(render_calendario_html(calendario, ano))
-    
-
-def render_calendario_html(calendario, ano):
-    html = ""
-
-    for mes, semanas in calendario.items():
-        nome_mes = calendar.month_name[mes]
-
-        if (mes - 1) % 3 == 0:
-            html += "<div class='row'>"
-
-        html += f"<div class='mes-container col-4'> <a href='/calendario/{ano}-{mes}'><h4 class='bosta'>{nome_mes}</h4><table class='table table-bordered text-center'>"
-        html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) + "</tr></thead><tbody>"
-
-        for semana in semanas:
-            html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
-
-        html += f"</tbody></table></a></div>"
-
-        # fecha a linha a cada 3 meses
-        if mes % 3 == 0:
-            html += "</div>"
-
-    # caso o último <div class="row"> não tenha sido fechado (ex: se o loop acabar no mês 11)
-    if mes % 3 != 0:
-        html += "</div>"
-
-    return html
-
-def render_mes_html(ano, mes):
-    html = ""
-
-    nome_mes = calendar.month_name[mes]
-    semanas = calendar.monthcalendar(ano, mes)
-
-    html += f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
-    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
-
-    for semana in semanas:
-        html += "<tr>" + "".join(f"<td><div class='dia'><p>{dia if dia != 0 else '&nbsp'}</p></div></td>" for dia in semana) + "</tr>"
-
-    html += "</tbody></table></div>"
-
-    return html
-
-# ---------------------------------------------------------- rotas admin
-
-def render_admin_mes_html(ano, mes):
-    html = ""
-
-    nome_mes = calendar.month_name[mes]
-    semanas = calendar.monthcalendar(ano, mes)
-
-    html += f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
-    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
-
-    for semana in semanas:
-        html += "<tr>" + "".join(f"<td><div class='dia-admin'>{"<button data-data="+str(ano)+"-"+str(mes)+"-"+str(dia)+" onclick='openPopup(this)'>"+str(dia)+"</button>" if dia != 0 else "&nbsp"}</div></td>" for dia in semana) + "</tr>"
-
-    html += "</tbody></table></div>"
-
-    return html
+    return render_template_string(evento_controller.render_calendario_html(calendario, ano))
 
 @app.route("/admin/calendario/<int:ano>-<int:mes>")
 def admin_calendario_mes(ano, mes):
-    html = render_template_string(render_admin_mes_html(ano, mes))
+    html = render_template_string(evento_controller.render_admin_mes_html(ano, mes))
 
     return render_template("calendario-mes-admin.html", mes_html=html)
 
