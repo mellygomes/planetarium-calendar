@@ -144,10 +144,6 @@ def admin_calendario_mes(ano, mes):
 
     return render_template("calendario-mes-admin.html", mes_html=html)
 
-@app.route('/admin/adicionar-evento', methods=['POST'])
-def route_adicionar_evento():
-    return evento_controller.adicionar_evento()
-
 # ---------------------------------------------------------- TESTES
 import json
 import ephem
