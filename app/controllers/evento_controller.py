@@ -255,8 +255,6 @@ def render_mes_html(ano, mes):
                             f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
                             f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
                         )
-
-
                 html += "</div></td>"
         html += "</tr>"
 
