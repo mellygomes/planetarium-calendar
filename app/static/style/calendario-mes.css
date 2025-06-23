@@ -117,7 +117,7 @@ main {
 .popup-content {
     font-family: 'Poppins', sans-serif;
     color: #F5DBF6;
-    background: #5E6199;
+    background: radial-gradient(circle at top left, #78549C, #9576B4);
     -webkit-text-stroke: 0;
 
     width: 30%;
@@ -229,6 +229,20 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.marcador-evento {
+    background-color: #78549C;
+    color: #F5DBF6;
+    font-size: 0.7rem;
+    padding: 5px 6px;
+    border-radius: 8px;
+    margin: 2px 0;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     /* font-family: 'Poppins', sans-serif; */
     /* font-weight: bold; */
     -webkit-text-stroke: 0.1px #FFFBEF;
@@ -243,4 +257,38 @@ main {
     right: 6px;
     font-size: 1.2rem;
     pointer-events: none;
+}
+
+.marcador-evento:hover {
+    color: #F5DBF6;
+    background-color: #fca5ff31;
+}
+
+.popup-explicativo {
+    font-size: 1.5rem;
+}
+
+.popup-explicativo .data {
+    margin-bottom: 5rem;
+}
+
+.popup-explicativo h2 {
+    margin-bottom: 3rem;
+}
+
+.popup-explicativo .dia-semana {
+    border-right: 1px solid #F5DBF6;
+    justify-content: center;
+}
+
+.popup-explicativo .descricoes {
+    font-size: 1rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.popup-explicativo .item-descritivo {
+    margin-bottom: 4rem;
+    margin-left: 3rem;
+    margin-right: 2rem;
 }

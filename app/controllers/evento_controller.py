@@ -58,18 +58,25 @@ def get_eventos_do_ano(ano): # -> retorna todos os eventos entre primeiro e ulti
 
     return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
 
-def get_eventos_do_mes(ano, mes): # -> retorna todos os eventos entre primeiro e ultimo dia do mes
-    eventos_por_data = (
-        db.session.query(Evento.data_evento, func.count(Evento.id_evento))
+def get_eventos_do_mes(ano, mes):
+    _, ultimo_dia = calendar.monthrange(ano, mes)
+
+    eventos = (
+        db.session.query(Evento)
         .filter(
             Evento.data_evento >= date(ano, mes, 1),
-            Evento.data_evento <= date(ano, mes, 31)
+            Evento.data_evento <= date(ano, mes, ultimo_dia)
         )
-        .group_by(Evento.data_evento)
         .all()
     )
 
-    return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+    eventos_por_data = {}
+    for evento in eventos:
+        data_str = evento.data_evento.strftime('%Y-%m-%d')
+        eventos_por_data.setdefault(data_str, []).append(evento)
+
+    return eventos_por_data
+
 
 def excluir_evento():
     pass
@@ -155,7 +162,6 @@ def render_calendario_html(calendario, ano):
 
     return html
 
-
 # ---------------------------------------------------------- Fases da lua no calendário MENSAL
 
 def fases_lua_do_mes(ano, mes):
@@ -188,14 +194,17 @@ def fases_lua_do_mes(ano, mes):
 # ---------------------------------------------------------- Renderização do calendario MENSAL
 
 def render_mes_html(ano, mes):
-    eventos = carregar_eventos_astronomicos(ano)
+    eventos_por_dia = get_eventos_do_mes(ano, mes)  # dict com data_str: lista_de_eventos
+    eventos_astronomicos = carregar_eventos_astronomicos(ano)
     fases_lua = fases_lua_do_mes(ano, mes)
 
     nome_mes = calendar.month_name[mes]
     semanas = calendar.monthcalendar(ano, mes)
 
+    dias_semana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+
     html = f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
-    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
+    html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in dias_semana) + "</tr></thead><tbody>"
 
     for semana in semanas:
         html += "<tr>"
@@ -204,24 +213,48 @@ def render_mes_html(ano, mes):
                 html += "<td><div class='dia'>&nbsp;</div></td>"
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
-                eventos_dia = eventos.get(data_str, [])
+
+                eventos_dia = eventos_astronomicos.get(data_str, [])
                 emoji = fases_lua.get(dia, "")
+                tem_evento_db = data_str in eventos_por_dia.keys()
+                eventos_astro_dia = eventos_astronomicos.get(data_str, [])
 
-                # To tentando fazer os eventos aparecerem mesmo quando nao tem evento astronomico
-                classe = "dia evento-astronomico" if eventos_dia else "dia"
+                classes = ["dia"]
+                if eventos_astro_dia:
+                    classes.append("evento-astronomico")
+                if tem_evento_db:
+                    classes.append("dia-evento")
 
-                html += f"<td><div class='{classe}' data-dia='{dia}'>"
+                classes.append("dia evento-astronomico" if eventos_dia else "dia")
+
+                html += f"<td><div class='{' '.join(classes)}' data-dia='{dia}'>"
                 html += f"<p>{dia}</p>"
-                    
+
                 if emoji:
                     html += f"<span class='emoji-lua'>{emoji}</span>"
-                
+
+                # Eventos 
                 html += "<div class='eventos-scroll .evento-astronomico'>"
                 for nome_evento in eventos_dia:
                     nome_limpo = nome_evento.split(" (")[0]
                     html += f"<div class='nome-evento'>{nome_limpo}</div>"
                 html += "</div>"
 
+                # Opcional: marcador visual para evento do banco
+                if data_str in eventos_por_dia:
+                    for evento in eventos_por_dia[data_str][:2]:  # limita a 2 eventos
+                        dia_semana_num = datetime.strptime(data_str, "%Y-%m-%d").weekday()
+                        dia_da_semana = dias_semana[dia_semana_num] 
+
+                        if dia_semana_num != 5 or 6: # -> para dias da semana menos sábado e domingo
+                            dia_da_semana += '-Feira'
+
+                        html += (
+                            f"<div class='marcador-evento' data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
+                            f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' data-horario-inicio='{evento.horario_inicio_evento}' "
+                            f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
+                            f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
+                        )
                 html += "</div></td>"
         html += "</tr>"
 
