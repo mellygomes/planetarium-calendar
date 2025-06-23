@@ -115,3 +115,9 @@ main {
     text-decoration: none;
     color: #F5DBF6;
 }
+
+/*Estilo para o dia atual ANUAL*/
+.hoje-anual {
+    background-color: #fae078c7 !important;
+    border-radius: 10px;
+}
