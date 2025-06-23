@@ -71,7 +71,6 @@ main {
 /* GAMBIARRAAAA AAEHHH */
 .mes-unico-container td .dia-admin::after {
     content: attr(data-dia);
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -86,23 +85,16 @@ main {
 .mes-unico-container td button {
     color: #F5DBF6;
     background-color: #ccb9de00;
-    padding-bottom: 50%;
+    /* padding-bottom: 50%; */
     border: none;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     text-align: left;
 }
 
 .mes-unico-container td button:hover {
-    color: #F5DBF6;
     background-color: #fca5ff31;
-    padding-bottom: 50%;
-    border: none;
-    width: 100%;
-    height: 100%;
-    text-align: left;
 }
-
 
 /* ----------------------------------------- popup */
 .popup-overlay {
@@ -121,7 +113,7 @@ main {
 .popup-content {
     font-family: 'Poppins', sans-serif;
     color: #F5DBF6;
-    background: radial-gradient(circle at top left, #78549C, #9576B4);
+    background: linear-gradient(to right, #78549C, #9576B4);
     -webkit-text-stroke: 0;
 
     width: 30%;
@@ -134,18 +126,16 @@ main {
 /* Botão de fechar */
 .close-btn {
     float: right;
-
-    padding: 8px;
-    border-radius: 100%;
-    background-color: #F5DBF6;
-    color: #694344;
-    border: none;
+    width: 3rem;
+    height: 3rem;
     cursor: pointer;
 }
 
 
 .close-btn:hover {
     background-color: #ac60ad;
+    border: 3px solid #ac60ad;
+    border-radius: 100%;
 }
 
 .submit-btn {
@@ -300,6 +290,7 @@ main {
 }
 
 .popup-explicativo .dia-semana {
+    font-size: 2.3rem;
     border-right: 1px solid #F5DBF6;
     justify-content: center;
 }
