@@ -234,11 +234,11 @@ def render_mes_html(ano, mes):
                     html += f"<span class='emoji-lua'>{emoji}</span>"
 
                 # Eventos 
-                html += "<div class='eventos-scroll .evento-astronomico'>"
+                html += "<div class='eventos-scroll '>"
                 for nome_evento in eventos_dia:
                     nome_limpo = nome_evento.split(" (")[0]
                     html += f"<div class='nome-evento'>{nome_limpo}</div>"
-                html += "</div>"
+                # html += "</div>"
 
                 # Opcional: marcador visual para evento do banco
                 if data_str in eventos_por_dia:
@@ -246,11 +246,12 @@ def render_mes_html(ano, mes):
                         dia_semana_num = datetime.strptime(data_str, "%Y-%m-%d").weekday()
                         dia_da_semana = dias_semana[dia_semana_num] 
 
-                        if dia_semana_num != 5 or 6: # -> para dias da semana menos sábado e domingo
+                        if dia_semana_num not in (5, 6): # -> para dias da semana menos sábado e domingo
                             dia_da_semana += '-Feira'
 
                         html += (
-                            f"<div class='marcador-evento' data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
+                            f"<div class='marcador-evento' "
+                            f"data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
                             f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' data-horario-inicio='{evento.horario_inicio_evento}' "
                             f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
                             f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
