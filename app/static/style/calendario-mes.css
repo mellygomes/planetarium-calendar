@@ -25,6 +25,10 @@ main {
     height: 8.2rem; 
 }
 
+.mes-unico-container table td .dia:hover {
+    background-color: #78549c54;
+}
+
 .mes-unico-container table td p {
    padding: 8%;
    margin-bottom: 0rem;
