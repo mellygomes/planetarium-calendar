@@ -171,7 +171,7 @@ main {
 /* Estilização para eventos astronômicos do datas_astronomicas.json no calendário */
 
 .evento-astronomico {
-    background: radial-gradient(circle at top left, #f5dbf62f, #ff769d52);
+    /* background: radial-gradient(circle at top left, #f5dbf62f, #ff769d52); */
     border: 1px solid #fca5ff88;
     border-radius: 10px;
     position: relative;
@@ -214,6 +214,8 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: bold;
+    -webkit-text-stroke: 0px #FFFBEF;
 }
 
 .marcador-evento {
