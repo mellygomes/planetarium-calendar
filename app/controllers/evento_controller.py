@@ -216,10 +216,11 @@ def render_mes_html(ano, mes):
     fases_lua = fases_lua_do_mes(ano, mes)
     hoje = date.today() #Função p mostrar o dia de hoje :)
 
-    nome_mes = calendar.month_name[mes]
-    semanas = calendar.monthcalendar(ano, mes)
-
     dias_semana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+    meses_ano = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+    nome_mes = meses_ano[mes - 1] # -> -1 porque e começa em 0
+    semanas = calendar.monthcalendar(ano, mes)
 
     html = f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
     html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in dias_semana) + "</tr></thead><tbody>"
@@ -293,11 +294,13 @@ def render_admin_mes_html(ano, mes):
     eventos_por_dia = get_eventos_do_mes(ano, mes)  # dict com data_str: lista_de_eventos
     eventos_astronomicos = carregar_eventos_astronomicos(ano)
     fases_lua = fases_lua_do_mes(ano, mes)
-
-    nome_mes = calendar.month_name[mes]
-    semanas = calendar.monthcalendar(ano, mes)
+    hoje = date.today() #Função p mostrar o dia de hoje :)
 
     dias_semana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+    meses_ano = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+    nome_mes = meses_ano[mes - 1] # -> -1 porque e começa em 0
+    semanas = calendar.monthcalendar(ano, mes)
 
     html = f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
     html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in dias_semana) + "</tr></thead><tbody>"
@@ -306,7 +309,7 @@ def render_admin_mes_html(ano, mes):
         html += "<tr>"
         for dia in semana:
             if dia == 0:
-                html += "<td><div>&nbsp;</div></td>"
+                html += "<td><div class='dia-sem-evento'>&nbsp;</div></td>"
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
 
@@ -316,18 +319,19 @@ def render_admin_mes_html(ano, mes):
                 eventos_astro_dia = eventos_astronomicos.get(data_str, [])
 
                 classes = ["dia"]
+
                 if eventos_astro_dia:
                     classes.append("evento-astronomico")
                 if tem_evento_db:
                     classes.append("dia-evento")
-
-                classes.append("dia evento-astronomico" if eventos_dia else "dia")
-
-                html += f"<td><div class='{' '.join(classes)}' data-dia='{dia}' data-data='{data_str}' onclick='openPopup(this)'>"
-                html += f"<p>{dia}</p>"
-
+                if dia == hoje.day and mes == hoje.month and ano == hoje.year:
+                    classes.append("hoje")
                 if emoji:
                     html += f"<span class='emoji-lua'>{emoji}</span>"
+
+
+                html += f"<td><div data-data='{data_str}' onclick='openPopup(this)' class='{' '.join(classes)}' data-dia='{dia}'>"
+                html += f"<p><span class='numero-dia'>{dia}</span></p>"
 
                 html += "<div class='eventos-scroll'>"
 
@@ -348,10 +352,11 @@ def render_admin_mes_html(ano, mes):
                         html += (
                             f"<div class='marcador-evento' "
                             f"data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
+
                             f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' data-horario-inicio='{evento.horario_inicio_evento}' "
                             f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
                             f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
-                        )
+                        )   
 
                 html += "</div>"  # fecha eventos-scroll
                 html += "</div></td>"  # fecha .dia e td
@@ -359,3 +364,74 @@ def render_admin_mes_html(ano, mes):
 
     html += "</tbody></table></div>"
     return html
+
+# def render_admin_mes_html(ano, mes):
+#     eventos_por_dia = get_eventos_do_mes(ano, mes)  # dict com data_str: lista_de_eventos
+#     eventos_astronomicos = carregar_eventos_astronomicos(ano)
+#     fases_lua = fases_lua_do_mes(ano, mes)
+
+#     nome_mes = calendar.month_name[mes]
+#     semanas = calendar.monthcalendar(ano, mes)
+
+#     dias_semana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+
+#     html = f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
+#     html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in dias_semana) + "</tr></thead><tbody>"
+
+#     for semana in semanas:
+#         html += "<tr>"
+#         for dia in semana:
+#             if dia == 0:
+#                 html += "<td><div>&nbsp;</div></td>"
+#             else:
+#                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
+
+#                 eventos_dia = eventos_astronomicos.get(data_str, [])
+#                 emoji = fases_lua.get(dia, "")
+#                 tem_evento_db = data_str in eventos_por_dia.keys()
+#                 eventos_astro_dia = eventos_astronomicos.get(data_str, [])
+
+#                 classes = ["dia"]
+#                 if eventos_astro_dia:
+#                     classes.append("evento-astronomico")
+#                 if tem_evento_db:
+#                     classes.append("dia-evento")
+
+#                 classes.append("dia evento-astronomico" if eventos_dia else "dia")
+
+#                 html += f"<td><div class='{' '.join(classes)}' data-dia='{dia}' data-data='{data_str}' onclick='openPopup(this)'>"
+#                 html += f"<p>{dia}</p>"
+
+#                 if emoji:
+#                     html += f"<span class='emoji-lua'>{emoji}</span>"
+
+#                 html += "<div class='eventos-scroll'>"
+
+#                 # Eventos astronômicos
+#                 for nome_evento in eventos_dia:
+#                     nome_limpo = nome_evento.split(" (")[0]
+#                     html += f"<div class='nome-evento'>{nome_limpo}</div>"
+
+#                 # Eventos do banco
+#                 if data_str in eventos_por_dia:
+#                     for evento in eventos_por_dia[data_str][:2]:  # limita a 2 eventos
+#                         dia_semana_num = datetime.strptime(data_str, "%Y-%m-%d").weekday()
+#                         dia_da_semana = dias_semana[dia_semana_num] 
+
+#                         if dia_semana_num not in (5, 6):  # só adiciona '-Feira' em dias úteis
+#                             dia_da_semana += '-Feira'
+
+#                         html += (
+#                             f"<div class='marcador-evento' "
+#                             f"data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
+#                             f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' data-horario-inicio='{evento.horario_inicio_evento}' "
+#                             f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
+#                             f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
+#                         )
+
+#                 html += "</div>"  # fecha eventos-scroll
+#                 html += "</div></td>"  # fecha .dia e td
+#         html += "</tr>"
+
+#     html += "</tbody></table></div>"
+#     return html
