@@ -84,6 +84,8 @@ def excluir_evento():
 def editar_evento():
     pass
 
+# ---------------------------------------------------------- Eventos do datas_astronomicas.json 
+
 def calcular_dia_mundial_astronomia(ano):
     equinocio = datetime(ano, 9, 22)
     proximo_quarto_crescente = ephem.next_first_quarter_moon(ephem.Date(equinocio)).datetime()
@@ -118,6 +120,8 @@ def carregar_eventos_astronomicos(ano):
         eventos[str(data)].append(evento["nome"])
 
     return eventos
+
+# ---------------------------------------------------------- Renderização do calendario ANUAL
 
 def render_calendario_html(calendario, ano):
     html = ""
@@ -158,50 +162,41 @@ def render_calendario_html(calendario, ano):
 
     return html
 
-# def render_mes_html(ano, mes):
-#     eventos_por_dia = get_eventos_do_mes(ano, mes)
-#     eventos = carregar_eventos_astronomicos(ano)
+# ---------------------------------------------------------- Fases da lua no calendário MENSAL
 
-#     nome_mes = calendar.month_name[mes]
-#     semanas = calendar.monthcalendar(ano, mes)
+def fases_lua_do_mes(ano, mes):
+    fases = {
+        '🌑': ephem.next_new_moon,
+        '🌓': ephem.next_first_quarter_moon,
+        '🌕': ephem.next_full_moon,
+        '🌗': ephem.next_last_quarter_moon
+    }
 
-#     html = f"<div class='mes-unico-container'><h4>{nome_mes} {ano}</h4><table class='table table-bordered text-center'>"
-#     html += "<thead><tr>" + "".join(f"<th>{dia}</th>" for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]) + "</tr></thead><tbody>"
+    data_inicio = ephem.Date(f"{ano}/{mes}/1")
+    if mes == 12:
+        data_limite = ephem.Date(f"{ano+1}/1/1")
+    else:
+        data_limite = ephem.Date(f"{ano}/{mes+1}/1")
 
-#     for semana in semanas:
-#         html += "<tr>"
-#         for dia in semana:
-#             if dia == 0:
-#                 html += "<td><div class='dia'>&nbsp;</div></td>"
-#             else:
-#                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
-#                 eventos_dia = eventos.get(data_str, [])
+    datas_fases = {}
 
-#                 if eventos_dia:
-#                     html += f"<td><div class='dia evento-astronomico' data-dia='{dia}'>"
-#                     html += f"<p>{dia}</p>"
-#                     for nome_evento in eventos_dia:
-#                         nome_limpo = nome_evento.split(" (")[0]  # pega só o que vem antes do parêntese
+    for emoji, funcao in fases.items():
+        data = funcao(data_inicio)
+        while data < data_limite:
+            dia = data.datetime().day
+            # Se houver mais de uma fase no mesmo dia, só guarda a primeira encontrada
+            if dia not in datas_fases:
+                datas_fases[dia] = emoji
+            data = funcao(data + 1)  # pula para a próxima ocorrência
 
-#                         data_str = f"{ano}-{mes:02d}-{dia:02d}"
-#                         classe = "dia-evento" if data_str in eventos_por_dia else ""
+    return datas_fases
 
-#                         html += f"<div class='nome-evento {classe}'>{nome_limpo}</div>"
-
-#                     html += "</div></td>"
-#                 else:
-#                     data_str = f"{ano}-{mes:02d}-{dia:02d}"
-#                     classe = "dia-evento" if data_str in eventos_por_dia else "dia"
-
-#                     html += f"<td><div class='{classe}' data-dia='{dia}'><p>{dia}</p></div></td>"
-#         html += "</tr>"
-
-#     html += "</tbody></table></div>"
-#     return html
+# ---------------------------------------------------------- Renderização do calendario MENSAL
 
 def render_mes_html(ano, mes):
     eventos_por_dia = get_eventos_do_mes(ano, mes)  # dict com data_str: lista_de_eventos
-    eventos_astronomicos = carregar_eventos_astronomicos(ano)  # dict com data_str: lista_de_eventos
+    eventos_astronomicos = carregar_eventos_astronomicos(ano)
+    fases_lua = fases_lua_do_mes(ano, mes)
 
     nome_mes = calendar.month_name[mes]
     semanas = calendar.monthcalendar(ano, mes)
@@ -218,6 +213,9 @@ def render_mes_html(ano, mes):
                 html += "<td><div class='dia'>&nbsp;</div></td>"
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
+
+                eventos_dia = eventos_astronomicos.get(data_str, [])
+                emoji = fases_lua.get(dia, "")
                 tem_evento_db = data_str in eventos_por_dia.keys()
                 eventos_astro_dia = eventos_astronomicos.get(data_str, [])
 
@@ -227,13 +225,20 @@ def render_mes_html(ano, mes):
                 if tem_evento_db:
                     classes.append("dia-evento")
 
+                classes.append("dia evento-astronomico" if eventos_dia else "dia")
+
                 html += f"<td><div class='{' '.join(classes)}' data-dia='{dia}'>"
                 html += f"<p>{dia}</p>"
 
-                # Renderizar eventos astronômicos
-                for nome_evento in eventos_astro_dia:
+                if emoji:
+                    html += f"<span class='emoji-lua'>{emoji}</span>"
+
+                # Eventos 
+                html += "<div class='eventos-scroll .evento-astronomico'>"
+                for nome_evento in eventos_dia:
                     nome_limpo = nome_evento.split(" (")[0]
                     html += f"<div class='nome-evento'>{nome_limpo}</div>"
+                html += "</div>"
 
                 # Opcional: marcador visual para evento do banco
                 if data_str in eventos_por_dia:
@@ -253,7 +258,6 @@ def render_mes_html(ano, mes):
 
 
                 html += "</div></td>"
-
         html += "</tr>"
 
     html += "</tbody></table></div>"
