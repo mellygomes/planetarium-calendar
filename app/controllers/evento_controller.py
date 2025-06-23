@@ -252,9 +252,9 @@ def render_mes_html(ano, mes):
                         html += (
                             f"<div class='marcador-evento' "
                             f"data-data='{data_str}' data-titulo='{evento.titulo_evento}' "
-                            f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' "
-                            f"data-horario-inicio='{evento.horario_inicio_evento}' data-horario-fim='{evento.horario_fim_evento}' "
-                            f"data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
+
+                            f"data-local='{evento.local_evento}' data-descricao='{evento.descricao_evento}' data-horario-inicio='{evento.horario_inicio_evento}' "
+                            f"data-horario-fim='{evento.horario_fim_evento}' data-categoria='{evento.categoria_evento}' data-dia-semana='{dia_da_semana}' "
                             f"onclick='abrirPopupExplicativo(this)'>{evento.titulo_evento}</div>"
                         )
 
