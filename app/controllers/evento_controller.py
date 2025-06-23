@@ -45,18 +45,36 @@ def adicionar_evento():
     return "Dados do formulário ausentes ou inválidos", 400
 
 
-def get_eventos_do_ano(ano): # -> retorna todos os eventos entre primeiro e ultimo dia do ano
-    eventos_por_data = (
-        db.session.query(Evento.data_evento, func.count(Evento.id_evento))
-        .filter(
-            Evento.data_evento >= date(ano, 1, 1),
-            Evento.data_evento <= date(ano, 12, 31)
-        )
-        .group_by(Evento.data_evento)
+# -> retorna todos os eventos entre primeiro e ultimo dia do ano
+# def get_eventos_do_ano(ano): 
+#     eventos_por_data = (
+#         db.session.query(Evento.data_evento, func.count(Evento.id_evento))
+#         .filter(
+#             Evento.data_evento >= date(ano, 1, 1),
+#             Evento.data_evento <= date(ano, 12, 31)
+#         )
+#         .group_by(Evento.data_evento)
+#         .all()
+#     )
+
+#     return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+
+#Tentando fazer TODOS os eventos aparecerem no calendário
+def get_eventos_do_ano(ano):
+    eventos_db = (
+        db.session.query(Evento.data_evento)
+        .filter(Evento.data_evento >= date(ano, 1, 1),
+                Evento.data_evento <= date(ano, 12, 31))
         .all()
     )
+    datas_db = {data.strftime('%Y-%m-%d') for data, in eventos_db}
 
-    return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+    # Eventos do JSON (astronômicos)
+    eventos_json = carregar_eventos_astronomicos(ano)
+    datas_json = set(eventos_json.keys())
+
+    return datas_db.union(datas_json)
+
 
 def get_eventos_do_mes(ano, mes):
     _, ultimo_dia = calendar.monthrange(ano, mes)
@@ -122,7 +140,6 @@ def carregar_eventos_astronomicos(ano):
     return eventos
 
 # ---------------------------------------------------------- Renderização do calendario ANUAL
-
 def render_calendario_html(calendario, ano):
     html = ""
 
@@ -197,6 +214,7 @@ def render_mes_html(ano, mes):
     eventos_por_dia = get_eventos_do_mes(ano, mes)  # dict com data_str: lista_de_eventos
     eventos_astronomicos = carregar_eventos_astronomicos(ano)
     fases_lua = fases_lua_do_mes(ano, mes)
+    hoje = date.today() #Função p mostrar o dia de hoje :)
 
     nome_mes = calendar.month_name[mes]
     semanas = calendar.monthcalendar(ano, mes)
@@ -220,15 +238,19 @@ def render_mes_html(ano, mes):
                 eventos_astro_dia = eventos_astronomicos.get(data_str, [])
 
                 classes = ["dia"]
+
                 if eventos_astro_dia:
                     classes.append("evento-astronomico")
                 if tem_evento_db:
                     classes.append("dia-evento")
 
-                classes.append("dia evento-astronomico" if eventos_dia else "dia")
+                if dia == hoje.day and mes == hoje.month and ano == hoje.year:
+                    classes.append("hoje")
+
 
                 html += f"<td><div class='{' '.join(classes)}' data-dia='{dia}'>"
-                html += f"<p>{dia}</p>"
+                html += f"<p><span class='numero-dia'>{dia}</span></p>"
+
 
                 if emoji:
                     html += f"<span class='emoji-lua'>{emoji}</span>"

@@ -55,6 +55,13 @@
     "descricao": "Início do inverno no hemisfério sul.",
     "recorrente": true
   },
+    {
+    "nome": "Outro teste",
+    "data": "23-06",
+    "descricao": "xxxxxx",
+    "recorrente": true
+  },
+
   {
     "nome": "Dia da Lua",
     "data": "20-07",
