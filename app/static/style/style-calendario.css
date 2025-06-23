@@ -16,7 +16,7 @@ main {
     width: 30%;
 }
 
- .mes-container{
+.mes-container{
     transform: scale(1.0);
     transition: .5s ease-in-out;
 }
@@ -52,11 +52,12 @@ main {
 
 .mes-container table td .dia-evento {
     background: radial-gradient(circle at top left, #dbebf646, #d9a5ff88);
-    border: 1px dashed #d9a5ff88;
-    border-radius: 10px;
+    border: 1px #d9a5ff88;
+    border-radius: 2px;
     position: relative;
     overflow: hidden;
     padding: 6%;
+    padding-bottom: 0.4rem;
 }
 
 .mes-container table {
