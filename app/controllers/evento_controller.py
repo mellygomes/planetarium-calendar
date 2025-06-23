@@ -77,6 +77,8 @@ def excluir_evento():
 def editar_evento():
     pass
 
+# ---------------------------------------------------------- Eventos do datas_astronomicas.json 
+
 def calcular_dia_mundial_astronomia(ano):
     equinocio = datetime(ano, 9, 22)
     proximo_quarto_crescente = ephem.next_first_quarter_moon(ephem.Date(equinocio)).datetime()
@@ -111,6 +113,8 @@ def carregar_eventos_astronomicos(ano):
         eventos[str(data)].append(evento["nome"])
 
     return eventos
+
+# ---------------------------------------------------------- Renderização do calendario ANUAL
 
 def render_calendario_html(calendario, ano):
     html = ""
@@ -151,8 +155,41 @@ def render_calendario_html(calendario, ano):
 
     return html
 
+
+# ---------------------------------------------------------- Fases da lua no calendário MENSAL
+
+def fases_lua_do_mes(ano, mes):
+    fases = {
+        '🌑': ephem.next_new_moon,
+        '🌓': ephem.next_first_quarter_moon,
+        '🌕': ephem.next_full_moon,
+        '🌗': ephem.next_last_quarter_moon
+    }
+
+    data_inicio = ephem.Date(f"{ano}/{mes}/1")
+    if mes == 12:
+        data_limite = ephem.Date(f"{ano+1}/1/1")
+    else:
+        data_limite = ephem.Date(f"{ano}/{mes+1}/1")
+
+    datas_fases = {}
+
+    for emoji, funcao in fases.items():
+        data = funcao(data_inicio)
+        while data < data_limite:
+            dia = data.datetime().day
+            # Se houver mais de uma fase no mesmo dia, só guarda a primeira encontrada
+            if dia not in datas_fases:
+                datas_fases[dia] = emoji
+            data = funcao(data + 1)  # pula para a próxima ocorrência
+
+    return datas_fases
+
+# ---------------------------------------------------------- Renderização do calendario MENSAL
+
 def render_mes_html(ano, mes):
     eventos = carregar_eventos_astronomicos(ano)
+    fases_lua = fases_lua_do_mes(ano, mes)
 
     nome_mes = calendar.month_name[mes]
     semanas = calendar.monthcalendar(ano, mes)
@@ -168,17 +205,24 @@ def render_mes_html(ano, mes):
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
                 eventos_dia = eventos.get(data_str, [])
+                emoji = fases_lua.get(dia, "")
 
-                if eventos_dia:
-                    html += f"<td><div class='dia evento-astronomico' data-dia='{dia}'>"
-                    html += f"<p>{dia}</p>"
-                    for nome_evento in eventos_dia:
-                        nome_limpo = nome_evento.split(" (")[0]  # pega só o que vem antes do parêntese
-                        html += f"<div class='nome-evento'>{nome_limpo}</div>"
+                # To tentando fazer os eventos aparecerem mesmo quando nao tem evento astronomico
+                classe = "dia evento-astronomico" if eventos_dia else "dia"
 
-                    html += "</div></td>"
-                else:
-                    html += f"<td><div class='dia' data-dia='{dia}'><p>{dia}</p></div></td>"
+                html += f"<td><div class='{classe}' data-dia='{dia}'>"
+                html += f"<p>{dia}</p>"
+                    
+                if emoji:
+                    html += f"<span class='emoji-lua'>{emoji}</span>"
+                
+                html += "<div class='eventos-scroll .evento-astronomico'>"
+                for nome_evento in eventos_dia:
+                    nome_limpo = nome_evento.split(" (")[0]
+                    html += f"<div class='nome-evento'>{nome_limpo}</div>"
+                html += "</div>"
+
+                html += "</div></td>"
         html += "</tr>"
 
     html += "</tbody></table></div>"
