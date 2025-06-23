@@ -176,23 +176,9 @@ main {
     border-radius: 10px;
     position: relative;
     overflow: hidden;
-
-    /* padding-top: 1rem;
-    padding-right: 0.4rem;
-    padding-left: 0.4rem;
-    padding-bottom: 0.4rem;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-height: 100%;
-    display: flex; */
-    /* padding: 6%; */
-    /* min-height: 8.2rem; */
-    /* height: auto; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* z-index: 1; */
-    /* width: 3rem; */
     padding-top: -0.5rem;
     min-height: 8.2rem;
 }
@@ -200,7 +186,6 @@ main {
 /* Contêiner de eventos com scroll se passar */
 .eventos-scroll {
     overflow-y: auto;
-    /* max-height: 1200px; Ajuste conforme sua célula */
     overflow-x: hidden;
     flex-grow: 1;
     padding-right: 4px;
@@ -245,8 +230,6 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /* font-family: 'Poppins', sans-serif; */
-    /* font-weight: bold; */
     -webkit-text-stroke: 0.1px #FFFBEF;
     margin-top: 1px;
     margin-bottom: 5px;
