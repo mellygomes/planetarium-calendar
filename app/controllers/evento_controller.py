@@ -210,7 +210,7 @@ def render_mes_html(ano, mes):
         html += "<tr>"
         for dia in semana:
             if dia == 0:
-                html += "<td><div class='dia'>&nbsp;</div></td>"
+                html += "<td><div class='dia-sem-evento'>&nbsp;</div></td>"
             else:
                 data_str = f"{ano}-{mes:02d}-{dia:02d}"
 
