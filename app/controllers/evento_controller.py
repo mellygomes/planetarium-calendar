@@ -141,6 +141,7 @@ def carregar_eventos_astronomicos(ano):
 
 # ---------------------------------------------------------- Renderização do calendario ANUAL
 def render_calendario_html(calendario, ano):
+    hoje_ano = date.today().strftime('%Y-%m-%d') #Função p mostrar o dia de hoje :)
     html = ""
 
     eventos_por_dia = get_eventos_do_ano(ano)
@@ -160,10 +161,18 @@ def render_calendario_html(calendario, ano):
             for dia in semana:
                 if dia != 0:
                     data_str = f"{ano}-{mes:02d}-{dia:02d}"
-                    classe = "dia-evento" if data_str in eventos_por_dia else "dia"
-                    html += f"<td><div class='{classe}'><p>{dia}</p></div></td>"
+
+                    classes = ["dia"]
+                    if data_str in eventos_por_dia:
+                        classes.append("dia-evento")
+                    if data_str == hoje_ano:
+                        classes.append("hoje-anual")
+
+                    html += f"<td><div class='{' '.join(classes)}'><p>{dia}</p></div></td>"
                 else:
                     html += "<td><div class='dia'><p>&nbsp;</p></div></td>"
+                
+                
             html += "</tr>"
 
 
@@ -243,7 +252,8 @@ def render_mes_html(ano, mes):
                     classes.append("evento-astronomico")
                 if tem_evento_db:
                     classes.append("dia-evento")
-
+                
+                # Pra aparecer o dia de hoje no calendário :D
                 if dia == hoje.day and mes == hoje.month and ano == hoje.year:
                     classes.append("hoje")
 

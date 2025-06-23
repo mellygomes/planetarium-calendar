@@ -254,7 +254,7 @@ main {
     background-color: #fca5ff31;
 }
 
-/*Estilo para o dia atual */
+/*Estilo para o dia atual MENSAL*/
 .hoje, .marcador-evento{
     border-radius: 8px;
     position: relative;
@@ -282,6 +282,9 @@ main {
     z-index: -1;
 }
 
+.hoje:hover, .marcador-evento:hover{
+    background-color: #ffe68027 !important;
+}
 
 /* Estilizações dos pop-ups */
 .popup-explicativo {
