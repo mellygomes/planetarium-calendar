@@ -45,7 +45,7 @@
                         <a href="/calendario" class="nav-link text-light">Calendário</a>
                     </li>
                     <li class="nav-item nav-links">
-                        <a href="#" class="nav-link text-light">Eventos</a>
+                        <a href="/eventos" class="nav-link text-light">Eventos</a>
                     </li>
                 </ul>
 
@@ -112,71 +112,36 @@
             </div>
         </div>
 
-        <!-- Carrossel de EVENTOS RECENTES -->
-        <div class="row row-carousel" style="margin-top: 5rem;">
-            <p class="recent-events-title">Eventos Recentes</p>
+        {%if upcoming_events%}
+            <!-- Carrossel de EVENTOS RECENTES -->
+            <div class="row row-carousel" style="margin-top: 5rem;">
+                <p class="recent-events-title">Próximos eventos do planetário</p>
 
-            <!-- Seta de anterior -->
-            <div class="swiper-button-prev"></div>
+                <!-- Seta de anterior -->
+                <div class="swiper-button-prev"></div>
 
-            <div class="carousel carousel-events">
-                <div class="swiper-wrapper">
-                    <!-- Cada slide correspondente a um evento -->
-                    
-                    <!-- Slide Exemplo 1 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>G</p>
-                        </div>
-                    </div>
+                <div class="carousel carousel-events">
+                    <div class="swiper-wrapper">
+                        <!-- Cada slide correspondente a um evento -->
+                        
+                        {% for evento in upcoming_events %}
+                            {% set ano = evento.data_evento.year %}
+                            {% set mes = evento.data_evento.month %}
 
-                    <!-- Slide Exemplo 2 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>a</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide Exemplo 3 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>b</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide Exemplo 4 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>r</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide Exemplo 5 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>i</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide Exemplo 6 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>e</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide Exemplo 7 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <p>oi</p>
-                        </div>
-                    </div>
-                </div>
+                            <div class="swiper-slide">
+                                <a href="{{ url_for("calendario_mes", ano=ano, mes=mes) }}" target="_self">
+                                    <div class="event-card">
+                                        <h3 class="text-carousel">{{ evento.titulo_evento }}</h3>
+                                        <h5>{{ evento.data_evento }}</h5>
+                                        <p>{{ evento.descricao_evento }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                <!-- Seta de próximo -->
+                <div class="swiper-button-next"></div>
             </div>
-
-            <!-- Seta de próximo -->
-            <div class="swiper-button-next"></div>
-        </div>
+        {%endif%}
     </div>
 
 </body>

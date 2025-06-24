@@ -6,22 +6,27 @@
     <link rel="icon" href="{{ url_for('static', filename='icons/daily-cosmos-logo2.png') }}" type="image/x-icon">
     <title>Daily Cosmos</title>
 
-    <script src="{{ url_for('static', filename='js/calendario-mes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/eventos.js') }}"></script>
 
+    <!-- Importando Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/style-calendario-mes.css') }}"> -->
+    <!-- CSS do Swiper JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <!-- Importando arquivos CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/style-all.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/calendario-mes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/homepage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/navbar-style.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/eventos.css') }}">
 </head>
-<body>  
+<body>
+    <!-- Adicionando Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Configuração das divs do background -->
     <div class="background-stars-gif"></div>
     <div class="background-gradient-overlay"></div>
-
+    
     <!-- Bloco da NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light px-4">
         <div class="container-fluid">
@@ -68,10 +73,24 @@
             </div>
         </div>
     </nav>
-
+    
     <main>
         <div class="container d-flex justify-content-center">
-            {{ mes_html | safe }}
+
+            <div class="lista-eventos align-items-center">
+                {%for evento in eventos%}
+                    <div class="item-lista-eventos" data-data="{{evento.data_evento}}" data-inicio="{{evento.horario_inicio_evento}}" data-fim="{{evento.horario_fim_evento}}" onload="formatarDataHora(this)">
+
+                        <img class="icons-popup open-btn" src="{{ url_for('static', filename='icons/icon-enlarge.png') }}" data-data="{{evento.data_evento}}" 
+                        data-titulo="{{evento.titulo_evento}}" data-horario-inicio="{{evento.horario_inicio_evento}}" data-horario-fim="{{evento.horario_fim_evento}}" 
+                        data-descricao="{{evento.descricao_evento}}" data-local="{{evento.local_evento}}" data-categoria="{{evento.categoria_evento}}"  
+                        onclick="abrirPopupExplicativo(this)"> 
+
+                        <h4> <span class="dia-semana-item"></span> <span class="data-dia-item"></span>, <span class="inicio-item"></span> - <span class="fim-item"></span></h4>
+                        <p>{{evento.descricao_evento or 'Sem descrição'}}</p>
+                    </div>
+                {%endfor%}
+            </div>
         </div>
 
         <div id="popup-explicativo" class="popup-overlay popup-explicativo">
@@ -115,6 +134,5 @@
             </div>
         </div>
     </main>
-    
 </body>
 </html>
