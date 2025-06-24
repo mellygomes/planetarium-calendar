@@ -1,0 +1,98 @@
+.lista-eventos {
+    width: 80%;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    border-left: 1px solid snow;
+    border-right: 1px solid snow;
+}
+
+.item-lista-eventos {
+    padding: 1rem;
+    margin: 2rem;
+    border-radius: 0 10px 10px 10px;
+    background: linear-gradient(to right, #ff769d8d, #f7eeff34);
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000086;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo para o conteúdo do popup */
+.popup-content {
+    font-family: 'Poppins', sans-serif;
+    color: #F5DBF6;
+    background: linear-gradient(to right, #78549C, #9576B4);
+    -webkit-text-stroke: 0;
+
+    width: 30%;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botão para abrir */
+.open-btn {
+    float: right;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.open-btn:hover {
+    background-color: #ac60ad50;
+    border: 2px solid #ac60adc5;
+}
+
+/* Botão de fechar */
+.close-btn {
+    float: right;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+
+.close-btn:hover {
+    background-color: #ac60ad;
+    border: 3px solid #ac60ad;
+    border-radius: 100%;
+}
+
+.popup-explicativo {
+    font-size: 1.5rem;
+}
+
+.popup-explicativo .data {
+    margin-bottom: 5rem;
+}
+
+.popup-explicativo h2 {
+    margin-bottom: 3rem;
+}
+
+.popup-explicativo .dia-semana {
+    font-size: 2.3rem;
+    border-right: 1px solid #F5DBF6;
+    justify-content: center;
+}
+
+.popup-explicativo .descricoes {
+    font-size: 1rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.popup-explicativo .item-descritivo {
+    margin-bottom: 4rem;
+    margin-left: 3rem;
+    margin-right: 2rem;
+}

@@ -39,7 +39,7 @@
                         <a href="/calendario" class="nav-link text-light">Calendário</a>
                     </li>
                     <li class="nav-item nav-links">
-                        <a href="#" class="nav-link text-light">Eventos</a>
+                        <a href="/eventos" class="nav-link text-light">Eventos</a>
                     </li>
                 </ul>
 
@@ -54,7 +54,6 @@
                             </button>
                             <ul class="dropdown-menu" style="margin-top: 0.8rem; margin-left: -2.2rem; height: 7.3rem; text-align: right;">
                                 <li class="dropdown-item2">{{current_user.nome_usuario}}</li>
-                                <!-- <li><a class="dropdown-item" href="#">{{current_user.nome_usuario}}</a></li> -->
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </div>
@@ -81,7 +80,7 @@
                     <form id="form-add-evento" action="/admin/adicionar-evento" method="POST">
                         <div class="form-group container form-evento">
                             <div class="row">
-                                <h2>Adicionar novo evento em <p> (Esse é um texto default) </p> </h2>
+                                <h2>Adicionar novo evento em <p>(Esse é um texto default)</p></h2>
                                 <input type="hidden" name="data_evento" id="data_evento">
                             </div>
 

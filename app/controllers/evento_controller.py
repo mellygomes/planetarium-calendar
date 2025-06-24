@@ -44,20 +44,36 @@ def adicionar_evento():
     # Se não passou pelo if, retorna algo
     return "Dados do formulário ausentes ou inválidos", 400
 
+def get_lista_eventos_proximos():
+    hoje = datetime.today().date()
+    proximos_tres_meses = hoje.replace(month=hoje.month + 3)
 
-# -> retorna todos os eventos entre primeiro e ultimo dia do ano
-# def get_eventos_do_ano(ano): 
-#     eventos_por_data = (
-#         db.session.query(Evento.data_evento, func.count(Evento.id_evento))
-#         .filter(
-#             Evento.data_evento >= date(ano, 1, 1),
-#             Evento.data_evento <= date(ano, 12, 31)
-#         )
-#         .group_by(Evento.data_evento)
-#         .all()
-#     )
+    eventos = (
+        db.session.query(Evento)
+        .filter(
+            Evento.data_evento <= proximos_tres_meses,
+            Evento.data_evento >= hoje
+        )
+        .all()
+    )
 
-#     return {data.strftime('%Y-%m-%d') for data, _ in eventos_por_data}
+    return eventos
+
+
+def get_lista_eventos_recentes():
+    hoje = datetime.today().date()
+    tres_anos_atras = hoje.replace(year=hoje.year - 3)
+
+    eventos = (
+        db.session.query(Evento)
+        .filter(
+            Evento.data_evento >= tres_anos_atras,
+            Evento.data_evento <= hoje
+        )
+        .all()
+    )
+
+    return eventos
 
 #Tentando fazer TODOS os eventos aparecerem no calendário
 def get_eventos_do_ano(ano):
@@ -211,10 +227,7 @@ def render_calendario_html(calendario, ano):
                     html += f"<td><div class='{' '.join(classes)}'><p>{dia}</p></div></td>"
                 else:
                     html += "<td><div class='dia'><p>&nbsp;</p></div></td>"
-                
-                
             html += "</tr>"
-
 
         html += f"</tbody></table></a></div>"
 

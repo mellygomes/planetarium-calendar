@@ -10,9 +10,9 @@ from flask import render_template, render_template_string # Renderiza as paginas
 @app.route("/")
 def homepage():
     if current_user.is_authenticated:
-        return render_template('homepage.html', usuario=current_user)
+        return render_template('homepage.html', usuario=current_user, upcoming_events=evento_controller.get_lista_eventos_proximos())
     else:
-        return render_template('homepage.html')
+        return render_template('homepage.html', upcoming_events=evento_controller.get_lista_eventos_proximos())
 
 @app.route("/login")
 def login():
@@ -21,6 +21,10 @@ def login():
 @app.route("/cadastro")
 def cadastro():
     return render_template("cadastro.html")
+
+@app.route("/eventos")
+def eventos():
+    return render_template("eventos.html", eventos=evento_controller.get_lista_eventos_recentes())
 
 @app.route("/calendario")
 def calendario():

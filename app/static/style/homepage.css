@@ -119,9 +119,19 @@
 }
 
 .event-card {
-  text-align: center;
-  color: #fff;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 0.4rem;
+    color: #ffffff;
 }
+
+.swiper-slide a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
 
 .swiper-button-next{
     color: #B6AAFF;

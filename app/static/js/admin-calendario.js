@@ -3,17 +3,14 @@ const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julh
 // Função para abrir o popup
 function openPopup(elemento) {
   if (document.getElementById('popup-explicativo').style.display != 'flex') {
-    const data = elemento.getAttribute('data-data');
-    document.getElementById('data_evento').value = data;
+      const data = elemento.getAttribute('data-data');
+      document.getElementById('data_evento').value = data;
 
+      // opcional: mostrar a data na interface também
+      const [ano, mes, dia] = data.split('-');
+      const dataVisual = `${dia} de ${meses[parseInt(mes, 10)]} de ${ano}`; // O parseInt serve pra tirar o zero à esquerda
 
-    // opcional: mostrar a data na interface também
-    const [ano, mes, dia] = data.split('-');
-    const dataVisual = 'testeeeee'// `${dia} de ${meses[parseInt(mes, 10)]} de ${ano}`; // O parseInt serve pra tirar o zero à esquerda
-
-    document.querySelector('.popup-content p').textContent = dataVisual;
-    console.log(dataVisual)
-
+      document.querySelector('.popup-content p').textContent = dataVisual;
   
       document.getElementById('popup').style.display = 'flex';
   }
@@ -37,7 +34,7 @@ function abrirPopupExplicativo(elemento) {
     const categoria = elemento.getAttribute('data-categoria');
     const dia_semana = elemento.getAttribute('data-dia-semana');
 
-    document.querySelector('.popup-content h2').textContent = titulo;
+    document.querySelector('.popup-content .title').textContent = titulo;
     document.querySelector('.popup-content .data').textContent = dataVisual;
     document.querySelector('.dia-semana p').textContent = dia_semana;
     document.querySelector('.horarios .inicio').textContent = `${inicio.slice(0, 5)}`;
