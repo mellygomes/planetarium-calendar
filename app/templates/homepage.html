@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        {%if upcoming_events%}
+        {% if upcoming_events %}
             <!-- Carrossel de EVENTOS RECENTES -->
             <div class="row row-carousel" style="margin-top: 5rem;">
                 <p class="recent-events-title">Próximos eventos do planetário</p>
@@ -132,7 +132,7 @@
                             {% set mes = evento.data_evento.month %}
 
                             <div class="swiper-slide">
-                                <a href="{{ url_for('calendario_mes', ano=ano, mes=mes) }}" target="_self">
+                                <a href="{{ url_for("calendario_mes", ano=ano, mes=mes) }}" target="_self">
                                     <div class="event-card">
                                         <h3 class="text-carousel">{{ evento.titulo_evento }}</h3>
                                         <h5>{{ evento.data_evento }}</h5>
@@ -143,8 +143,9 @@
                         {% endfor %}
                 <!-- Seta de próximo -->
                 <div class="swiper-button-next"></div>
+                </div>
             </div>
-        {%endif%}
+        {% endif %}
     </div>
 
 </body>
