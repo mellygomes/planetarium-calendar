@@ -18,6 +18,11 @@ Este projeto é uma aplicação web desenvolvida com Flask, utilizando uma arqui
 
 - Jinja2 🧵
 
+- Bootstrap
+
+- JavaScrip (para interações visuais)
+
+- JSON
 
 ## 🔄 Organização em Camadas
 
