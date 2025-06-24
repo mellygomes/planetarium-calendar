@@ -276,6 +276,25 @@ main {
     background-color: #ffe68027 !important;
 }
 
+/* Emoji de meteoro */
+.emoji-estrela {
+    position: absolute;
+    top: 4px;
+    right: 32px;
+    font-size: 1.2rem;
+    cursor: help;
+    pointer-events: auto;
+    z-index: 10;
+    color: #FFD700;
+    transition: transform 0.2s ease;
+}
+
+
+.emoji-estrela:hover {
+    transform: scale(1.2);
+}
+
+
 /* Estilizações dos pop-ups */
 .popup-explicativo {
     font-size: 1.5rem;

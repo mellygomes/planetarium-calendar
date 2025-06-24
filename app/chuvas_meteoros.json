@@ -1,0 +1,47 @@
+[
+  {
+    "nome": "Quadrântidas",
+    "inicio": "01-01",
+    "fim": "05-01"
+  },
+  {
+    "nome": "Liríadas",
+    "inicio": "16-04",
+    "fim": "25-04"
+  },
+  {
+    "nome": "Eta Aquáridas",
+    "inicio": "19-04",
+    "fim": "28-05"
+  },
+  {
+    "nome": "Delta Aquáridas do Sul",
+    "inicio": "12-07",
+    "fim": "23-08"
+  },
+  {
+    "nome": "Perseidas",
+    "inicio": "17-07",
+    "fim": "24-08"
+  },
+  {
+    "nome": "Oriônidas",
+    "inicio": "02-10",
+    "fim": "07-11"
+  },
+  {
+    "nome": "Leonídeas",
+    "inicio": "06-11",
+    "fim": "30-11"
+  },
+  {
+    "nome": "Geminídeas",
+    "inicio": "04-12",
+    "fim": "17-12"
+  },
+  {
+    "nome": "Úrsidas",
+    "inicio": "17-12",
+    "fim": "26-12"
+  }
+]
