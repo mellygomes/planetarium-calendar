@@ -1,6 +1,7 @@
 from app.models.evento import Evento
 from datetime import datetime, date
 import calendar
+from dateutil.relativedelta import relativedelta
 from sqlalchemy import func
 
 import json
@@ -46,19 +47,37 @@ def adicionar_evento():
 
 def get_lista_eventos_proximos():
     hoje = datetime.today().date()
-    proximos_tres_meses = hoje.replace(month=hoje.month + 3)
+    limite = hoje + relativedelta(months=+8)
 
     eventos = (
         db.session.query(Evento)
         .filter(
-            Evento.data_evento <= proximos_tres_meses,
-            Evento.data_evento >= hoje
+            Evento.data_evento >= hoje,
+            Evento.data_evento <= limite
         )
+        .order_by(Evento.data_evento)
         .all()
     )
 
     return eventos
+    # hoje = datetime.today().date()
+    # if hoje.month + 8 > 12:
+    #     n_mes = (hoje.month + 8) - 12
+    #     n_ano = hoje.year + 1
+    #     proximos_tres_meses = hoje.replace(year=n_ano,month=n_mes)
+    # else:
+    #     proximos_tres_meses = hoje.replace(month=hoje.month + 8)
 
+    # eventos = (
+    #     db.session.query(Evento)
+    #     .filter(
+    #         Evento.data_evento <= proximos_tres_meses,
+    #         Evento.data_evento >= hoje
+    #     )
+    #     .all()
+    # )
+
+    # return eventos
 
 def get_lista_eventos_recentes():
     hoje = datetime.today().date()
