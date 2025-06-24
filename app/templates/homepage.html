@@ -130,7 +130,7 @@
                         {% set ano = evento.data_evento.year %}
                         {% set mes = evento.data_evento.month %}
                         <div class="swiper-slide">
-                            <a href="{{ url_for("calendario_mes", ano=ano, mes=mes) }}" target="_self">
+                            <a href="{{ url_for('calendario_mes', ano=ano, mes=mes) }}" target="_self">
                             <div class="event-card">
                                 <h5 class="text-carousel">{{ evento.titulo_evento }}</h5>
                                 <h6>{{ evento.data_evento }}</h6>
